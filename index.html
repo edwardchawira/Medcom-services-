@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Florence Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-teal: #1a9e9e;
+            --primary-teal-hover: #2ab3b3;
+            --bg-light: #f0f4f5;
+            --text-dark: #2c3e50;
+            --card-radius: 12px;
+            --accent-pink: #e91e63;
+            --accent-orange: #ff9800;
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .nav-link.active {
+            color: var(--primary-teal) !important;
+            font-weight: 600;
+        }
+        
+        .logo-florence {
+            color: var(--text-dark);
+        }
+        
+        .logo-academy {
+            color: var(--primary-teal);
+            font-weight: bold;
+        }
+        
+        .btn-teal {
+            background-color: var(--primary-teal);
+            color: white;
+            border-color: var(--primary-teal);
+        }
+        
+        .btn-teal:hover {
+            background-color: var(--primary-teal-hover);
+            border-color: var(--primary-teal-hover);
+        }
+        
+        .btn-teal-outline {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-teal-outline:hover {
+            background-color: white;
+            color: var(--primary-teal);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: var(--card-radius);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .card-teal {
+            background-color: var(--primary-teal);
+            color: white;
+        }
+        
+        .card-pink {
+            background-color: var(--accent-pink);
+            color: white;
+        }
+        
+        .card-orange {
+            background-color: var(--accent-orange);
+            color: white;
+        }
+        
+        .avatar-circle {
+            background-color: var(--primary-teal);
+            color: white;
+        }
+        
+        .dashboard-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-tint text-teal-600 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">
+                            <span class="logo-florence">Florence</span><span class="logo-academy">Academy</span>
+                        </span>
+                    </div>
+                    <div class="hidden md:ml-8 md:flex md:space-x-8">
+                        <a href="index.html" class="nav-link active text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-home mr-2"></i>Home
+                        </a>
+                        <a href="courses.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-book-open mr-2"></i>Courses
+                        </a>
+                        <a href="collections.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-layer-group mr-2"></i>Collections
+                        </a>
+                        <a href="my-learning.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-graduation-cap mr-2"></i>My Learning
+                        </a>
+                        <a href="portfolio.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-briefcase mr-2"></i>Portfolio
+                        </a>
+                        <div class="relative">
+                            <a href="#" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                                <i class="fas fa-user-circle mr-2"></i>My Account
+                                <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">Welcome back, Peter</h1>
+        
+        <!-- Dashboard Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+            <!-- User Card -->
+            <div class="card dashboard-card p-6">
+                <div class="text-center">
+                    <div class="avatar-circle w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1">Peter Usieki</h3>
+                    <p class="text-sm text-gray-600 mb-4">2 Certificates</p>
+                    <button class="btn-teal w-full py-2 rounded-md hover:opacity-90 transition-opacity">
+                        View portfolio
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Continue Learning Card -->
+            <div class="card card-teal dashboard-card p-6">
+                <div class="text-center">
+                    <i class="fas fa-clipboard text-3xl mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Continue where you left off…</h3>
+                    <p class="text-sm mb-2 opacity-90">You're 44% through Basic First Aid Awareness</p>
+                    <div class="w-full bg-white bg-opacity-30 rounded-full h-2 mb-4">
+                        <div class="bg-white h-2 rounded-full" style="width: 44%"></div>
+                    </div>
+                    <button class="btn-teal-outline w-full py-2 rounded-md">
+                        View my learning
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Compliance Training Card -->
+            <div class="card card-pink dashboard-card p-6">
+                <div class="text-center">
+                    <i class="fas fa-book-open text-3xl mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Stay up to date with your compliance training</h3>
+                    <p class="text-sm mb-4 opacity-90">Keep your skills current with mandatory training</p>
+                    <button class="btn-teal-outline w-full py-2 rounded-md">
+                        View courses
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Open to Work Card -->
+            <div class="card card-orange dashboard-card p-6">
+                <div class="text-center">
+                    <i class="fas fa-certificate text-3xl mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-3">Are you open to work?</h3>
+                    <p class="text-sm mb-4 opacity-90">Share your achievements with employers</p>
+                    <button class="btn-teal-outline w-full py-2 rounded-md">
+                        View portfolio
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Activity -->
+        <section>
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Recent Activity</h2>
+            <div class="card p-6">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                        <div class="flex items-center">
+                            <div class="bg-green-100 text-green-600 p-2 rounded-full mr-4">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">Completed Medication Administration</p>
+                                <p class="text-sm text-gray-600">2 days ago</p>
+                            </div>
+                        </div>
+                        <span class="text-green-600 font-medium">+ Certificate</span>
+                    </div>
+                    
+                    <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-4">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">Started Basic First Aid Awareness</p>
+                                <p class="text-sm text-gray-600">5 days ago</p>
+                            </div>
+                        </div>
+                        <span class="text-blue-600 font-medium">In Progress</span>
+                    </div>
+                    
+                    <div class="flex items-center justify-between py-3">
+                        <div class="flex items-center">
+                            <div class="bg-green-100 text-green-600 p-2 rounded-full mr-4">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">Completed PEG Feed Training</p>
+                                <p class="text-sm text-gray-600">1 week ago</p>
+                            </div>
+                        </div>
+                        <span class="text-green-600 font-medium">+ Certificate</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

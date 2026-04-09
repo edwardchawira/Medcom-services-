@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - Florence Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-teal: #1a9e9e;
+            --primary-teal-hover: #2ab3b3;
+            --teal: #1aa8a8;
+            --bg-light: #eef2f3;
+            --bg-white: #ffffff;
+            --border-light: #e2e8ec;
+            --text-primary: #2c3e50;
+            --text-secondary: #6b7280;
+            --radius: 12px;
+            --radius-large: 14px;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .nav-link.active {
+            color: var(--primary-teal) !important;
+            font-weight: 600;
+        }
+        
+        .logo-florence {
+            color: var(--text-primary);
+        }
+        
+        .logo-academy {
+            color: var(--primary-teal);
+            font-weight: bold;
+        }
+        
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 36px 32px 0;
+        }
+        
+        .search-bar {
+            width: 100%;
+            height: 48px;
+            background: var(--bg-white);
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            transition: border-color 0.2s ease;
+        }
+        
+        .search-bar:focus-within {
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 3px rgba(26, 158, 158, 0.1);
+        }
+        
+        .search-bar input {
+            flex: 1;
+            border: none;
+            outline: none;
+            margin-left: 12px;
+            color: var(--text-primary);
+        }
+        
+        .search-bar input::placeholder {
+            color: var(--text-secondary);
+        }
+        
+        .filter-bar {
+            width: 100%;
+            height: 48px;
+            background: var(--bg-white);
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 8px;
+        }
+        
+        .filter-bar:hover {
+            border-color: var(--primary-teal);
+        }
+        
+        .filter-triangle {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid var(--text-primary);
+            margin-right: 12px;
+            transition: transform 0.2s ease;
+        }
+        
+        .filter-triangle.expanded {
+            transform: rotate(90deg);
+        }
+        
+        .filter-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .filter-panel.expanded {
+            max-height: 200px;
+            margin-top: 8px;
+        }
+        
+        .recommended-section {
+            background: #e8f5f5;
+            border-radius: var(--radius-large);
+            padding: 28px;
+            margin-top: 24px;
+        }
+        
+        .course-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        
+        .course-thumbnail {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: var(--radius) var(--radius) 0 0;
+        }
+        
+        .course-thumbnail.highlighted {
+            border: 3px solid #39ff14;
+            box-sizing: border-box;
+        }
+        
+        .btn-start {
+            width: 100%;
+            background: var(--bg-white);
+            border: 1.5px solid var(--teal);
+            color: var(--teal);
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 8px;
+            padding: 11px;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-start:hover {
+            background: var(--teal);
+            color: var(--bg-white);
+        }
+        
+        .teal-banner {
+            background: #0d7a7a;
+            border-radius: var(--radius-large);
+            padding: 28px 32px;
+            margin-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .btn-white {
+            background: var(--bg-white);
+            color: var(--text-primary);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-white:hover {
+            background: #f8fafc;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-tint text-teal-600 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">
+                            <span class="logo-florence">Florence</span><span class="logo-academy">Academy</span>
+                        </span>
+                    </div>
+                    <div class="hidden md:ml-8 md:flex md:space-x-8">
+                        <a href="index.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-home mr-2"></i>Home
+                        </a>
+                        <a href="courses.html" class="nav-link active text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-book-open mr-2"></i>Courses
+                        </a>
+                        <a href="collections.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-layer-group mr-2"></i>Collections
+                        </a>
+                        <a href="my-learning.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-graduation-cap mr-2"></i>My Learning
+                        </a>
+                        <a href="portfolio.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-briefcase mr-2"></i>Portfolio
+                        </a>
+                        <div class="relative">
+                            <a href="#" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                                <i class="fas fa-user-circle mr-2"></i>My Account
+                                <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <i class="fas fa-search text-gray-400"></i>
+            <input type="text" placeholder="Search courses">
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar" onclick="toggleFilter()">
+            <span class="filter-triangle" id="filterTriangle"></span>
+            <span class="text-gray-500">Filter courses</span>
+        </div>
+
+        <!-- Filter Panel (Hidden by default) -->
+        <div class="filter-panel" id="filterPanel">
+            <div class="bg-white border border-gray-200 rounded-lg p-4">
+                <div class="grid grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                        <select class="w-full border border-gray-300 rounded-md px-3 py-2">
+                            <option>All Categories</option>
+                            <option>Medication</option>
+                            <option>First Aid</option>
+                            <option>Clinical Skills</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Duration</label>
+                        <select class="w-full border border-gray-300 rounded-md px-3 py-2">
+                            <option>Any Duration</option>
+                            <option>0-10 minutes</option>
+                            <option>10-30 minutes</option>
+                            <option>30+ minutes</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Difficulty</label>
+                        <select class="w-full border border-gray-300 rounded-md px-3 py-2">
+                            <option>All Levels</option>
+                            <option>Beginner</option>
+                            <option>Intermediate</option>
+                            <option>Advanced</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommended Section -->
+        <div class="recommended-section">
+            <h2 class="text-2xl font-bold text-gray-900 mb-5">Recommended for you</h2>
+            <div class="grid grid-cols-3 gap-4">
+                <!-- Course Card 1 -->
+                <div class="course-card">
+                    <img src="https://picsum.photos/seed/medication-hands/400/200.jpg" alt="Prompting and assisting with medication in Home Care" class="course-thumbnail highlighted">
+                    <div class="p-5">
+                        <h3 class="text-base font-semibold text-gray-900 leading-tight mb-2 line-clamp-2">Prompting and assisting with medication in Home Care</h3>
+                        <div class="flex justify-between text-xs text-gray-500 mt-2">
+                            <span>15 chapters</span>
+                            <span>20–30 minutes</span>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-100"></div>
+                        <a href="course-detail.html" class="btn-start inline-block text-center">Start training</a>
+                    </div>
+                </div>
+
+                <!-- Course Card 2 -->
+                <div class="course-card">
+                    <img src="https://picsum.photos/seed/buccal-route/400/200.jpg" alt="An introduction to the buccal route of medication" class="course-thumbnail">
+                    <div class="p-5">
+                        <h3 class="text-base font-semibold text-gray-900 leading-tight mb-2 line-clamp-2">An introduction to the buccal route of medication</h3>
+                        <div class="flex justify-between text-xs text-gray-500 mt-2">
+                            <span>8 chapters</span>
+                            <span>0–10 minutes</span>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-100"></div>
+                        <a href="course-detail-buccal.html" class="btn-start inline-block text-center">Start training</a>
+                    </div>
+                </div>
+
+                <!-- Course Card 3 -->
+                <div class="course-card">
+                    <img src="https://picsum.photos/seed/diabetes-food/400/200.jpg" alt="Diabetes Awareness And Management" class="course-thumbnail">
+                    <div class="p-5">
+                        <h3 class="text-base font-semibold text-gray-900 leading-tight mb-2 line-clamp-2">Diabetes Awareness And Management</h3>
+                        <div class="flex justify-between text-xs text-gray-500 mt-2">
+                            <span>20 chapters</span>
+                            <span>40–60 minutes</span>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-100"></div>
+                        <a href="course-detail.html" class="btn-start inline-block text-center">Start training</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teal Banner -->
+        <div class="teal-banner">
+            <div>
+                <h3 class="text-white text-xl font-semibold mb-2">Ready to expand your skills?</h3>
+                <p class="text-white opacity-90">Browse our complete course catalog and find the perfect training for your career</p>
+            </div>
+            <button class="btn-white">Browse all courses</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleFilter() {
+            const panel = document.getElementById('filterPanel');
+            const triangle = document.getElementById('filterTriangle');
+            
+            panel.classList.toggle('expanded');
+            triangle.classList.toggle('expanded');
+        }
+    </script>
+</body>
+</html>

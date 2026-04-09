@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Learning - Florence Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-teal: #1a9e9e;
+            --primary-teal-hover: #2ab3b3;
+            --bg-light: #f0f4f5;
+            --text-dark: #2c3e50;
+            --card-radius: 12px;
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .nav-link.active {
+            color: var(--primary-teal) !important;
+            font-weight: 600;
+        }
+        
+        .logo-florence {
+            color: var(--text-dark);
+        }
+        
+        .logo-academy {
+            color: var(--primary-teal);
+            font-weight: bold;
+        }
+        
+        .btn-teal {
+            background-color: var(--primary-teal);
+            color: white;
+            border-color: var(--primary-teal);
+        }
+        
+        .btn-teal:hover {
+            background-color: var(--primary-teal-hover);
+            border-color: var(--primary-teal-hover);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: var(--card-radius);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .badge-in-progress {
+            background-color: #e5e7eb;
+            color: #6b7280;
+        }
+        
+        .badge-completed {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        
+        .table-row-hover:hover {
+            background-color: rgba(26, 158, 158, 0.05);
+        }
+        
+        .footer-small-caps {
+            font-variant: small-caps;
+            text-transform: lowercase;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-tint text-teal-600 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">
+                            <span class="logo-florence">Florence</span><span class="logo-academy">Academy</span>
+                        </span>
+                    </div>
+                    <div class="hidden md:ml-8 md:flex md:space-x-8">
+                        <a href="index.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-home mr-2"></i>Home
+                        </a>
+                        <a href="courses.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-book-open mr-2"></i>Courses
+                        </a>
+                        <a href="collections.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-layer-group mr-2"></i>Collections
+                        </a>
+                        <a href="my-learning.html" class="nav-link active text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-graduation-cap mr-2"></i>My Learning
+                        </a>
+                        <a href="portfolio.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-briefcase mr-2"></i>Portfolio
+                        </a>
+                        <div class="relative">
+                            <a href="#" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                                <i class="fas fa-user-circle mr-2"></i>My Account
+                                <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Tab Button -->
+        <div class="mb-8">
+            <button class="btn-teal px-6 py-3 rounded-full text-white font-medium">
+                Individual Courses
+            </button>
+        </div>
+
+        <!-- Progress Table -->
+        <div class="card overflow-hidden">
+            <table id="progressTable" class="w-full">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Course</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <!-- Table rows will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Progress Overview -->
+        <section class="mt-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Your Progress Overview</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="card p-6 text-center">
+                    <div class="text-3xl font-bold text-teal-600 mb-2">2</div>
+                    <div class="text-gray-600">Completed Courses</div>
+                </div>
+                <div class="card p-6 text-center">
+                    <div class="text-3xl font-bold text-blue-600 mb-2">2</div>
+                    <div class="text-gray-600">In Progress</div>
+                </div>
+                <div class="card p-6 text-center">
+                    <div class="text-3xl font-bold text-green-600 mb-2">2</div>
+                    <div class="text-gray-600">Certificates Earned</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-16 bg-white border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="footer-small-caps font-semibold text-gray-600 mb-4">LEGAL</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-teal-600">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-teal-600">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-small-caps font-semibold text-gray-600 mb-4">COMPANY</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-teal-600">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

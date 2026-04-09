@@ -1,0 +1,20 @@
+{
+  "name": "e-learn-platform",
+  "version": "1.0.0",
+  "description": "A modern e-learning platform",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000"
+  },
+  "keywords": [
+    "e-learning",
+    "education",
+    "courses"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@dyingc/brave-search-mcp-server": "^2.1.2"
+  }
+}

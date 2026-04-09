@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>An introduction to the buccal route of medication - Florence Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-teal: #1a9e9e;
+            --primary-teal-hover: #2ab3b3;
+            --teal: #1aa8a8;
+            --teal-dark: #158a8a;
+            --teal-light: #e8f5f5;
+            --bg-light: #eef2f3;
+            --bg-white: #ffffff;
+            --border-light: #e2e8ec;
+            --text-primary: #2c3e50;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --radius: 14px;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .nav-link.active {
+            color: var(--primary-teal) !important;
+            font-weight: 600;
+        }
+        
+        .logo-florence {
+            color: var(--text-primary);
+        }
+        
+        .logo-academy {
+            color: var(--primary-teal);
+            font-weight: bold;
+        }
+        
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 36px 32px 0;
+        }
+        
+        .flex-container {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+        
+        .main-content {
+            width: 68%;
+            flex-shrink: 0;
+        }
+        
+        .sidebar {
+            width: 30%;
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+            flex-shrink: 0;
+        }
+        
+        .card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+        }
+        
+        .teal-badge {
+            background: var(--teal);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .partner-badge {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 6px 12px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: var(--radius);
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        
+        .chapter-row {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .chapter-row:hover {
+            background-color: #fafcfc;
+        }
+        
+        .chapter-number {
+            background: var(--teal-light);
+            color: var(--teal);
+            font-size: 11px;
+            font-weight: 700;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .chevron {
+            transition: transform 0.2s ease;
+            color: var(--text-muted);
+        }
+        
+        .chevron.rotated {
+            transform: rotate(180deg);
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .accordion-content.expanded {
+            max-height: 200px;
+        }
+        
+        .faq-row {
+            padding: 18px 22px;
+            border-bottom: 1px solid var(--border-light);
+            cursor: pointer;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-answer.expanded {
+            max-height: 300px;
+            padding: 0 22px 18px;
+        }
+        
+        .btn-primary {
+            background: var(--teal);
+            color: white;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            background: var(--teal-dark);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--teal);
+            border: 2px solid var(--teal);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-outline:hover {
+            background: var(--teal);
+            color: white;
+        }
+        
+        .outcome-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .outcome-number {
+            background: var(--teal);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 13px;
+        }
+        
+        .info-label {
+            color: var(--text-primary);
+        }
+        
+        .info-value {
+            color: var(--text-secondary);
+            text-align: right;
+            max-width: 60%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-tint text-teal-600 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">
+                            <span class="logo-florence">Florence</span><span class="logo-academy">Academy</span>
+                        </span>
+                    </div>
+                    <div class="hidden md:ml-8 md:flex md:space-x-8">
+                        <a href="index.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-home mr-2"></i>Home
+                        </a>
+                        <a href="courses.html" class="nav-link active text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-book-open mr-2"></i>Courses
+                        </a>
+                        <a href="collections.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-layer-group mr-2"></i>Collections
+                        </a>
+                        <a href="my-learning.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-graduation-cap mr-2"></i>My Learning
+                        </a>
+                        <a href="portfolio.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-briefcase mr-2"></i>Portfolio
+                        </a>
+                        <div class="relative">
+                            <a href="#" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                                <i class="fas fa-user-circle mr-2"></i>My Account
+                                <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <div class="flex-container">
+            <!-- Left Column - Main Content -->
+            <div class="main-content">
+                <!-- Course Title + Badge Row -->
+                <div class="mb-6">
+                    <div class="teal-badge inline-block mb-4">Industry-backed eLearning</div>
+                    <h1 class="text-3xl font-bold text-gray-900 mb-4" style="font-size: 28px; font-weight: 700; letter-spacing: -0.5px;">
+                        An introduction to the buccal route of medication
+                    </h1>
+                    <div class="flex gap-3">
+                        <div class="partner-badge" style="border-color: var(--teal);">
+                            <i class="fas fa-certificate text-teal mr-2"></i>
+                            CPD Accredited
+                        </div>
+                        <div class="partner-badge">
+                            <i class="fas fa-award text-gray-600 mr-2"></i>
+                            Skills for Care
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Container -->
+                <div class="card mb-8 overflow-hidden">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen title="Course introduction video"></iframe>
+                    </div>
+                    <p class="text-center text-xs text-gray-500 mt-2">Course introduction video</p>
+                </div>
+
+                <!-- Learning Outcomes Section -->
+                <section class="mb-8">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4" style="font-size: 20px; font-weight: 700;">Learning outcomes</h2>
+                    <div class="card p-6">
+                        <div class="outcome-item">
+                            <div class="outcome-number">1</div>
+                            <div>Understand the anatomy and physiology of the buccal cavity and how medication is absorbed through this route.</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-number">2</div>
+                            <div>Identify appropriate medications that can be administered via the buccal route and their therapeutic uses.</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-number">3</div>
+                            <div>Explain the advantages and disadvantages of buccal medication administration compared to other routes.</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-number">4</div>
+                            <div>Demonstrate correct techniques for buccal medication placement and administration.</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-number">5</div>
+                            <div>Recognise and manage potential complications and side effects associated with buccal medication.</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-number">6</div>
+                            <div>Understand legal and professional responsibilities when administering buccal medication.</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-number">7</div>
+                            <div>Document buccal medication administration accurately and in line with regulatory requirements.</div>
+                        </div>
+                        <div class="outcome-item">
+                            <div class="outcome-number">8</div>
+                            <div>Communicate effectively with service users and healthcare professionals about buccal medication.</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- About This Course -->
+                <section class="mb-8">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4" style="font-size: 20px; font-weight: 700;">About this course</h2>
+                    <div class="card p-6">
+                        <p class="text-gray-600" style="font-size: 14px; line-height: 1.7;">
+                            This comprehensive course provides healthcare professionals with essential knowledge and skills for administering medication via the buccal route. The buccal route is an important alternative method of medication delivery, particularly useful when other routes are contraindicated or when rapid absorption is required. This course covers the anatomical considerations, medication types suitable for buccal administration, proper techniques, and potential complications. The module is CPD accredited and aligns with current UK healthcare standards and best practices.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Course Curriculum -->
+                <section class="mb-8">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4" style="font-size: 20px; font-weight: 700;">Course curriculum</h2>
+                    <div class="card overflow-hidden">
+                        <div class="chapter-row" onclick="toggleChapter(this)">
+                            <div class="chapter-number">01</div>
+                            <div class="flex-1">Introduction to buccal medication</div>
+                            <i class="fas fa-chevron-down chevron"></i>
+                        </div>
+                        <div class="chapter-row" onclick="toggleChapter(this)">
+                            <div class="chapter-number">02</div>
+                            <div class="flex-1">Anatomy and physiology of the buccal cavity</div>
+                            <i class="fas fa-chevron-down chevron"></i>
+                        </div>
+                        <div class="chapter-row" onclick="toggleChapter(this)">
+                            <div class="chapter-number">03</div>
+                            <div class="flex-1">Medications suitable for buccal administration</div>
+                            <i class="fas fa-chevron-down chevron"></i>
+                        </div>
+                        <div class="chapter-row" onclick="toggleChapter(this)">
+                            <div class="chapter-number">04</div>
+                            <div class="flex-1">Advantages of the buccal route</div>
+                            <i class="fas fa-chevron-down chevron"></i>
+                        </div>
+                        <div class="chapter-row" onclick="toggleChapter(this)">
+                            <div class="chapter-number">05</div>
+                            <div class="flex-1">Disadvantages and considerations</div>
+                            <i class="fas fa-chevron-down chevron"></i>
+                        </div>
+                        <div class="chapter-row" onclick="toggleChapter(this)">
+                            <div class="chapter-number">06</div>
+                            <div class="flex-1">Administration techniques</div>
+                            <i class="fas fa-chevron-down chevron"></i>
+                        </div>
+                        <div class="chapter-row" onclick="toggleChapter(this)">
+                            <div class="chapter-number">07</div>
+                            <div class="flex-1">Monitoring and assessment</div>
+                            <i class="fas fa-chevron-down chevron"></i>
+                        </div>
+                        <div class="chapter-row" onclick="toggleChapter(this)" style="border-bottom: none;">
+                            <div class="chapter-number">🏆</div>
+                            <div class="flex-1">What to expect from assessment</div>
+                            <i class="fas fa-chevron-down chevron"></i>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Get Certified Banner -->
+                <section class="mb-8">
+                    <div class="card p-8" style="background: var(--teal); border: none;">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-white text-xl font-bold mb-4">Get certified</h3>
+                                <ul class="text-white space-y-2" style="font-size: 14px;">
+                                    <li>• Showcase your expertise in buccal medication administration with a CPD accredited certificate</li>
+                                    <li>• Individual course certificate £8.99 (ex. VAT)</li>
+                                    <li>• Enhance your professional credentials and career opportunities</li>
+                                </ul>
+                            </div>
+                            <button class="btn-outline">Get certified</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Related Courses Section -->
+                <section class="mb-8">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4" style="font-size: 20px; font-weight: 700;">Related courses</h2>
+                    <div class="grid grid-cols-3 gap-4">
+                        <!-- Related Course 1 -->
+                        <div class="card hover:shadow-lg transition-shadow cursor-pointer">
+                            <img src="https://picsum.photos/seed/medication-hands/400/200.jpg" alt="Prompting and assisting with medication in Home Care" class="w-full h-32 object-cover rounded-t-lg">
+                            <div class="p-4">
+                                <h4 class="font-semibold text-gray-900 mb-2 text-sm">Prompting and assisting with medication in Home Care</h4>
+                                <div class="flex justify-between text-xs text-gray-500">
+                                    <span>15 chapters</span>
+                                    <span>20–30 minutes</span>
+                                </div>
+                                <div class="mt-3 pt-3 border-t border-gray-100"></div>
+                                <a href="course-detail.html" class="text-teal font-semibold text-sm hover:text-teal-dark">View course →</a>
+                            </div>
+                        </div>
+
+                        <!-- Related Course 2 -->
+                        <div class="card hover:shadow-lg transition-shadow cursor-pointer">
+                            <img src="https://picsum.photos/seed/diabetes-food/400/200.jpg" alt="Diabetes Awareness And Management" class="w-full h-32 object-cover rounded-t-lg">
+                            <div class="p-4">
+                                <h4 class="font-semibold text-gray-900 mb-2 text-sm">Diabetes Awareness And Management</h4>
+                                <div class="flex justify-between text-xs text-gray-500">
+                                    <span>20 chapters</span>
+                                    <span>40–60 minutes</span>
+                                </div>
+                                <div class="mt-3 pt-3 border-t border-gray-100"></div>
+                                <a href="#" class="text-teal font-semibold text-sm hover:text-teal-dark">View course →</a>
+                            </div>
+                        </div>
+
+                        <!-- Related Course 3 -->
+                        <div class="card hover:shadow-lg transition-shadow cursor-pointer">
+                            <img src="https://picsum.photos/seed/firstaid/400/200.jpg" alt="Basic First Aid Awareness" class="w-full h-32 object-cover rounded-t-lg">
+                            <div class="p-4">
+                                <h4 class="font-semibold text-gray-900 mb-2 text-sm">Basic First Aid Awareness</h4>
+                                <div class="flex justify-between text-xs text-gray-500">
+                                    <span>12 chapters</span>
+                                    <span>30–45 minutes</span>
+                                </div>
+                                <div class="mt-3 pt-3 border-t border-gray-100"></div>
+                                <a href="#" class="text-teal font-semibold text-sm hover:text-teal-dark">View course →</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ Section -->
+                <section class="mb-8">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4" style="font-size: 20px; font-weight: 700;">FAQ</h2>
+                    <div class="card overflow-hidden">
+                        <div class="faq-row" onclick="toggleFAQ(this)">
+                            <div class="font-semibold" style="font-size: 14px;">What medications can be given buccally?</div>
+                            <i class="fas fa-chevron-down chevron"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600" style="font-size: 13px; line-height: 1.7;">
+                                Common medications administered via the buccal route include certain pain medications, anti-emetics, and some cardiovascular drugs. The medication must be formulated for buccal absorption and have appropriate properties for this route of administration.
+                            </p>
+                        </div>
+                        
+                        <div class="faq-row" onclick="toggleFAQ(this)">
+                            <div class="font-semibold" style="font-size: 14px;">How quickly does buccal medication work?</div>
+                            <i class="fas fa-chevron-down chevron"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600" style="font-size: 13px; line-height: 1.7;">
+                                Buccal medication typically begins to work within 5-15 minutes, making it faster than oral administration but slightly slower than intravenous routes. The exact onset time depends on the specific medication and individual factors.
+                            </p>
+                        </div>
+                        
+                        <div class="faq-row" onclick="toggleFAQ(this)">
+                            <div class="font-semibold" style="font-size: 14px;">Is buccal administration safe?</div>
+                            <i class="fas fa-chevron-down chevron"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600" style="font-size: 13px; line-height: 1.7;">
+                                When performed correctly by trained healthcare professionals, buccal administration is generally safe. However, it requires proper technique, knowledge of suitable medications, and awareness of potential complications. This course covers all safety aspects.
+                            </p>
+                        </div>
+                        
+                        <div class="faq-row" onclick="toggleFAQ(this)" style="border-bottom: none;">
+                            <div class="font-semibold" style="font-size: 14px;">Can I administer buccal medication?</div>
+                            <i class="fas fa-chevron-down chevron"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-gray-600" style="font-size: 13px; line-height: 1.7;">
+                                Only healthcare professionals with appropriate training and within their scope of practice should administer buccal medication. This course provides the necessary knowledge and skills for qualified professionals.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column - Sticky Sidebar -->
+            <div class="sidebar">
+                <div class="card p-6">
+                    <!-- Course Thumbnail -->
+                    <img src="https://picsum.photos/seed/buccal-route/400/200.jpg" alt="Buccal Route of Medication" class="w-full rounded-lg mb-4" style="height: 160px; object-fit: cover; border-radius: 10px;">
+                    
+                    <!-- Course Title -->
+                    <h3 class="font-bold text-gray-900 mb-4" style="font-size: 15px; font-weight: 700;">
+                        An introduction to the buccal route of medication
+                    </h3>
+                    
+                    <!-- Course Info -->
+                    <div class="space-y-0 mb-6">
+                        <div class="info-row">
+                            <span class="info-label">Suitable for</span>
+                            <span class="info-value">Nurses, Healthcare Assistants, Pharmacists</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Course length</span>
+                            <span class="info-value">0–10 minutes</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Cost</span>
+                            <span class="info-value">Free (ex. VAT)</span>
+                        </div>
+                        <div class="info-row" style="border-bottom: none;">
+                            <span class="info-label">Certificate cost</span>
+                            <span class="info-value">£8.99 (ex. VAT)</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Note -->
+                    <p class="text-xs italic mb-6" style="color: var(--teal); font-size: 11px;">
+                        Certificates are free for active Florence workers
+                    </p>
+                    
+                    <!-- CTA Button -->
+                    <a href="course-overview.html" class="btn-primary w-full mb-3 inline-block text-center">Start learning</a>
+                    <p class="text-center text-xs text-gray-500">No payment required to start</p>
+                    
+                    <!-- Partner Badges -->
+                    <div class="flex justify-center gap-3 mt-4">
+                        <div class="partner-badge" style="border-color: var(--teal); font-size: 10px;">
+                            <i class="fas fa-certificate text-teal mr-1"></i>
+                            CPD
+                        </div>
+                        <div class="partner-badge" style="font-size: 10px;">
+                            <i class="fas fa-award text-gray-600 mr-1"></i>
+                            Skills for Care
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleChapter(element) {
+            const chevron = element.querySelector('.chevron');
+            chevron.classList.toggle('rotated');
+        }
+        
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const chevron = element.querySelector('.chevron');
+            
+            answer.classList.toggle('expanded');
+            chevron.classList.toggle('rotated');
+        }
+    </script>
+</body>
+</html>
