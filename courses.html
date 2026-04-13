@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses - Florence Academy</title>
+    <title>Courses - Medcom</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -202,12 +202,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="flex-shrink-0 flex items-center no-underline text-inherit hover:opacity-90 transition-opacity">
                         <i class="fas fa-tint text-teal-600 text-2xl mr-2"></i>
                         <span class="text-xl font-bold">
-                            <span class="logo-florence">Florence</span><span class="logo-academy">Academy</span>
+                            <span class="logo-florence">Med</span><span class="logo-academy">com</span>
                         </span>
-                    </div>
+                    </a>
                     <div class="hidden md:ml-8 md:flex md:space-x-8">
                         <a href="index.html" class="nav-link text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
                             <i class="fas fa-home mr-2"></i>Home
@@ -241,7 +241,7 @@
         <!-- Search Bar -->
         <div class="search-bar">
             <i class="fas fa-search text-gray-400"></i>
-            <input type="text" placeholder="Search courses">
+                <input id="searchInput" type="text" placeholder="Search courses">
         </div>
 
         <!-- Filter Bar -->
@@ -253,34 +253,72 @@
         <!-- Filter Panel (Hidden by default) -->
         <div class="filter-panel" id="filterPanel">
             <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <div class="grid grid-cols-3 gap-4">
+                    <div class="grid grid-cols-4 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                        <select class="w-full border border-gray-300 rounded-md px-3 py-2">
-                            <option>All Categories</option>
-                            <option>Medication</option>
-                            <option>First Aid</option>
-                            <option>Clinical Skills</option>
+                            <select id="filterCategory" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                                <option value="">All</option>
+                                <option value="Clinical">Clinical</option>
+                                <option value="Clinical Practice">Clinical Practice</option>
+                                <option value="Communication Skills">Communication Skills</option>
+                                <option value="Complex Care">Complex Care</option>
+                                <option value="Fundamentals">Fundamentals</option>
+                                <option value="Health and Safety">Health and Safety</option>
+                                <option value="Introduction to Care">Introduction to Care</option>
+                                <option value="Legislation">Legislation</option>
+                                <option value="Long Term Conditions">Long Term Conditions</option>
+                                <option value="Management & Leadership / Professional">Management & Leadership / Professional</option>
+                                <option value="Management Skills">Management Skills</option>
+                                <option value="Medicines Management">Medicines Management</option>
+                                <option value="Mental Health">Mental Health</option>
+                                <option value="NHS Nursing">NHS Nursing</option>
+                                <option value="Statutory and Mandatory">Statutory and Mandatory</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Audience</label>
+                        <select id="filterAudience" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                            <option value="">All</option>
+                            <option value="Care Assistant">Care Assistant</option>
+                            <option value="Nurse">Nurse</option>
+                            <option value="Other staff">Other staff</option>
+                            <option value="Registered Manager">Registered Manager</option>
+                            <option value="Senior Care Assistant">Senior Care Assistant</option>
+                            <option value="Team Leader / Supervisor">Team Leader / Supervisor</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Duration</label>
-                        <select class="w-full border border-gray-300 rounded-md px-3 py-2">
-                            <option>Any Duration</option>
-                            <option>0-10 minutes</option>
-                            <option>10-30 minutes</option>
-                            <option>30+ minutes</option>
+                        <select id="filterDuration" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                            <option value="">Any</option>
+                            <option value="0-10">0-10</option>
+                            <option value="10-20">10-20</option>
+                            <option value="20-30">20-30</option>
+                            <option value="30-40">30-40</option>
+                            <option value="40-60">40-60</option>
+                            <option value="60+">60+</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Difficulty</label>
-                        <select class="w-full border border-gray-300 rounded-md px-3 py-2">
-                            <option>All Levels</option>
-                            <option>Beginner</option>
-                            <option>Intermediate</option>
-                            <option>Advanced</option>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Collection</label>
+                        <select id="filterCollection" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                            <option value="">All</option>
+                            <option value="Advanced Safeguarding collection (L3)">Advanced Safeguarding collection (L3)</option>
+                            <option value="Care Essentials collection">Care Essentials collection</option>
+                            <option value="Care Leader collection">Care Leader collection</option>
+                            <option value="Pathway to Care collection">Pathway to Care collection</option>
+                            <option value="Understanding Mental Health and Wellbeing in Care collection">Understanding Mental Health and Wellbeing in Care collection</option>
                         </select>
                     </div>
+                    </div>
+
+                    <div class="mt-4 flex justify-end gap-2">
+                        <button id="clearFiltersBtn" class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors">
+                            Clear
+                        </button>
+                        <button id="applyFiltersBtn" class="px-4 py-2 rounded-md bg-teal-600 text-white hover:bg-teal-700 transition-colors">
+                            Apply
+                        </button>
                 </div>
             </div>
         </div>
@@ -288,49 +326,13 @@
         <!-- Recommended Section -->
         <div class="recommended-section">
             <h2 class="text-2xl font-bold text-gray-900 mb-5">Recommended for you</h2>
-            <div class="grid grid-cols-3 gap-4">
-                <!-- Course Card 1 -->
-                <div class="course-card">
-                    <img src="https://picsum.photos/seed/medication-hands/400/200.jpg" alt="Prompting and assisting with medication in Home Care" class="course-thumbnail highlighted">
-                    <div class="p-5">
-                        <h3 class="text-base font-semibold text-gray-900 leading-tight mb-2 line-clamp-2">Prompting and assisting with medication in Home Care</h3>
-                        <div class="flex justify-between text-xs text-gray-500 mt-2">
-                            <span>15 chapters</span>
-                            <span>20–30 minutes</span>
-                        </div>
-                        <div class="mt-4 pt-4 border-t border-gray-100"></div>
-                        <a href="course-detail.html" class="btn-start inline-block text-center">Start training</a>
-                    </div>
-                </div>
+            <div id="recommendedCourses" class="grid grid-cols-3 gap-4"></div>
+        </div>
 
-                <!-- Course Card 2 -->
-                <div class="course-card">
-                    <img src="https://picsum.photos/seed/buccal-route/400/200.jpg" alt="An introduction to the buccal route of medication" class="course-thumbnail">
-                    <div class="p-5">
-                        <h3 class="text-base font-semibold text-gray-900 leading-tight mb-2 line-clamp-2">An introduction to the buccal route of medication</h3>
-                        <div class="flex justify-between text-xs text-gray-500 mt-2">
-                            <span>8 chapters</span>
-                            <span>0–10 minutes</span>
-                        </div>
-                        <div class="mt-4 pt-4 border-t border-gray-100"></div>
-                        <a href="course-detail-buccal.html" class="btn-start inline-block text-center">Start training</a>
-                    </div>
-                </div>
-
-                <!-- Course Card 3 -->
-                <div class="course-card">
-                    <img src="https://picsum.photos/seed/diabetes-food/400/200.jpg" alt="Diabetes Awareness And Management" class="course-thumbnail">
-                    <div class="p-5">
-                        <h3 class="text-base font-semibold text-gray-900 leading-tight mb-2 line-clamp-2">Diabetes Awareness And Management</h3>
-                        <div class="flex justify-between text-xs text-gray-500 mt-2">
-                            <span>20 chapters</span>
-                            <span>40–60 minutes</span>
-                        </div>
-                        <div class="mt-4 pt-4 border-t border-gray-100"></div>
-                        <a href="course-detail.html" class="btn-start inline-block text-center">Start training</a>
-                    </div>
-                </div>
-            </div>
+        <!-- All Courses -->
+        <div class="mt-10">
+            <h2 class="text-2xl font-bold text-gray-900 mb-5">All courses</h2>
+            <div id="courseGrid" class="grid grid-cols-3 gap-4"></div>
         </div>
 
         <!-- Teal Banner -->
@@ -343,6 +345,7 @@
         </div>
     </div>
 
+    <script src="script.js"></script>
     <script>
         function toggleFilter() {
             const panel = document.getElementById('filterPanel');

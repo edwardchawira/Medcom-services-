@@ -1,4 +1,4 @@
-# Florence Academy - E-Learning Platform
+# Medcom - E-Learning Platform
 
 A modern, professional e-learning platform designed for healthcare workers in the UK. Built with clean aesthetics, responsive design, and user-friendly interface.
 
@@ -12,7 +12,7 @@ A modern, professional e-learning platform designed for healthcare workers in th
 
 - **Typography**: Clean sans-serif fonts with professional hierarchy
 - **Card Radius**: 12px for consistent rounded corners
-- **Logo**: Tulip/droplet icon with "Florence" (dark grey) + "Academy" (teal bold)
+- **Logo**: Tulip/droplet icon with "Med" (dark grey) + "com" (teal bold)
 
 ## 📁 Project Structure
 
@@ -147,7 +147,7 @@ Replace the tulip icon and text in the navigation:
 ```html
 <i class="fas fa-tint text-teal-600 text-2xl mr-2"></i>
 <span class="text-xl font-bold">
-    <span class="logo-florence">Florence</span><span class="logo-academy">Academy</span>
+    <span class="logo-florence">Med</span><span class="logo-academy">com</span>
 </span>
 ```
 
@@ -185,4 +185,4 @@ For questions, issues, or feature requests, please contact the development team 
 
 ---
 
-**Florence Academy** - Empowering healthcare professionals through quality education and training.
+**Medcom** - Empowering healthcare professionals through quality education and training.

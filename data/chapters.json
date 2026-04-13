@@ -1,0 +1,39 @@
+{
+  "phase1_access": {
+    "status": "authentication_required",
+    "verified_at": "2026-04-09",
+    "notes": "Unauthenticated HTTP fetch to Florence chapter URLs returns FlorenceAuth login (no chapter HTML). To extract from Florence, use a browser session where you are logged in, or export content you are permitted to reuse. Medcom course copy is original paraphrased instructional content aligned to chapter titles and structure.",
+    "reference_base": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9"
+  },
+  "firecrawl": {
+    "last_run": "2026-04-09",
+    "summary": "firecrawl_scrape on authenticated chapter URLs returned only FlorenceAuth login content. Public course URL scraped successfully; see data/firecrawl-extraction.json and js/medication-course-data.js (sourcePublicUrl).",
+    "public_course_url": "https://academy.florence.co.uk/public/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9"
+  },
+  "courseId": "prompting-medication-home-care",
+  "courseTitle": "Prompting and assisting with medication in Home Care",
+  "contentLocation": "embedded",
+  "contentScript": "js/medication-course-data.js",
+  "chapters": [
+    { "id": 1, "anchor": "ch-1", "title": "Introduction", "florenceChapterId": 1012, "florenceUrl": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=95838efa-392e-4564-9bdc-ede40630a476&chapter=1012&left_nav=true" },
+    { "id": 2, "anchor": "ch-2", "title": "What are your responsibilities?", "florenceChapterId": 1013, "florenceUrl": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=95838efa-392e-4564-9bdc-ede40630a476&chapter=1013&left_nav=true" },
+    { "id": 3, "anchor": "ch-3", "title": "What is prompting and assisting with medication?", "florenceChapterId": 1014, "florenceUrl": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=95838efa-392e-4564-9bdc-ede40630a476&chapter=1014&left_nav=true" },
+    { "id": 4, "anchor": "ch-4", "title": "Why may a person need assistance?", "florenceChapterId": 1015, "florenceUrl": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=95838efa-392e-4564-9bdc-ede40630a476&chapter=1015&left_nav=true" },
+    { "id": 5, "anchor": "ch-5", "title": "Understanding the needs of service users", "florenceChapterId": 1016, "florenceUrl": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=95838efa-392e-4564-9bdc-ede40630a476&chapter=1016&left_nav=true" },
+    { "id": 6, "anchor": "ch-6", "title": "How is medication stored in home care?", "florenceChapterId": 1017, "florenceUrl": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=95838efa-392e-4564-9bdc-ede40630a476&chapter=1017&left_nav=true" },
+    { "id": 7, "anchor": "ch-7", "title": "What are adverse drug reactions (ADR) and drug interactions?", "florenceChapterId": 1018, "florenceUrl": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=95838efa-392e-4564-9bdc-ede40630a476&chapter=1018&left_nav=true" },
+    { "id": 8, "anchor": "ch-8", "title": "What about refusals?", "florenceChapterId": 1019, "florenceUrl": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=95838efa-392e-4564-9bdc-ede40630a476&chapter=1019&left_nav=true" },
+    { "id": 9, "anchor": "ch-9", "title": "Documentation and record keeping", "florenceChapterId": 1020, "florenceUrl": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=95838efa-392e-4564-9bdc-ede40630a476&chapter=1020&left_nav=true" },
+    { "id": 10, "anchor": "ch-10", "title": "Ordering, transporting, storing, and disposing", "florenceChapterId": 1021, "florenceUrl": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=95838efa-392e-4564-9bdc-ede40630a476&chapter=1021&left_nav=true" },
+    { "id": 11, "anchor": "ch-11", "title": "Ethical considerations", "florenceChapterId": 1022, "florenceUrl": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=95838efa-392e-4564-9bdc-ede40630a476&chapter=1022&left_nav=true" },
+    { "id": 12, "anchor": "ch-12", "title": "Simple scenarios", "florenceChapterId": 1023, "florenceUrl": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=95838efa-392e-4564-9bdc-ede40630a476&chapter=1023&left_nav=true" },
+    { "id": 13, "anchor": "ch-13", "title": "Summary", "florenceChapterId": 1024, "florenceUrl": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=95838efa-392e-4564-9bdc-ede40630a476&chapter=1024&left_nav=true" },
+    { "id": 14, "anchor": "ch-14", "title": "Review & Reflect", "florenceChapterId": 1026, "florenceUrl": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=95838efa-392e-4564-9bdc-ede40630a476&chapter=1026&left_nav=true" },
+    { "id": 15, "anchor": "ch-15", "title": "What to expect from the assessment", "florenceChapterId": 1025, "florenceUrl": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=95838efa-392e-4564-9bdc-ede40630a476&chapter=1025&left_nav=true" }
+  ],
+  "assessment": {
+    "title": "Assessment",
+    "florenceUrl": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=95838efa-392e-4564-9bdc-ede40630a476&direction=next",
+    "anchor": "assessment"
+  }
+}

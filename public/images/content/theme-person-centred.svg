@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" role="img" aria-labelledby="t">
+  <title id="t">Person-centred care</title>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#fce7f3"/>
+      <stop offset="100%" stop-color="#fbcfe8"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="200" fill="url(#g)" rx="16"/>
+  <circle cx="300" cy="95" r="35" fill="#ec4899" fill-opacity=".35"/>
+  <circle cx="360" cy="95" r="35" fill="#db2777" fill-opacity=".25"/>
+  <circle cx="420" cy="95" r="35" fill="#be185d" fill-opacity=".35"/>
+  <text x="360" y="175" text-anchor="middle" fill="#9d174d" font-family="system-ui,sans-serif" font-size="14" font-weight="600">Person-centred support</text>
+</svg>

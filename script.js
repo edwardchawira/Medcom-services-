@@ -1,89 +1,138 @@
-// Florence Academy E-Learning Platform JavaScript
+// Medcom E-Learning Platform JavaScript
 
 // Course data
 const courses = [
     {
         id: 1,
         title: "Prompting and assisting with medication in Home Care",
-        category: "medication",
+        category: "Medicines Management",
+        audience: ["Care Assistant", "Senior Care Assistant", "Other staff"],
+        collections: ["Care Essentials collection"],
         chapters: 15,
         duration: "20-30 minutes",
         thumbnail: "https://picsum.photos/seed/medication1/400/200.jpg",
-        recommended: true
+        recommended: true,
+        startUrl: "course-overview.html"
     },
     {
         id: 2,
         title: "An introduction to the buccal route of medication",
-        category: "medication",
+        category: "Medicines Management",
+        audience: ["Care Assistant", "Senior Care Assistant", "Other staff"],
+        collections: ["Care Essentials collection"],
         chapters: 8,
         duration: "0-10 minutes",
         thumbnail: "https://picsum.photos/seed/buccal2/400/200.jpg",
-        recommended: true
+        recommended: true,
+        startUrl: "course-detail-buccal.html"
     },
     {
         id: 3,
         title: "Diabetes Awareness And Management",
-        category: "health",
+        category: "Long Term Conditions",
+        audience: ["Care Assistant", "Senior Care Assistant", "Other staff"],
+        collections: ["Pathway to Care collection"],
         chapters: 20,
         duration: "40-60 minutes",
         thumbnail: "https://picsum.photos/seed/diabetes3/400/200.jpg",
-        recommended: true
+        recommended: true,
+        startUrl: "course-detail.html"
     },
     {
         id: 4,
         title: "Basic First Aid Awareness",
-        category: "first-aid",
+        category: "Fundamentals",
+        audience: ["Care Assistant", "Senior Care Assistant", "Other staff"],
+        collections: [],
         chapters: 12,
         duration: "30-45 minutes",
         thumbnail: "https://picsum.photos/seed/firstaid4/400/200.jpg",
-        recommended: false
+        recommended: false,
+        startUrl: "course-detail.html"
     },
     {
         id: 5,
         title: "Equality, Diversity & LGBTQ+",
-        category: "social",
+        category: "Legislation",
+        audience: ["Care Assistant", "Senior Care Assistant", "Registered Manager", "Other staff"],
+        collections: [],
         chapters: 10,
         duration: "25-35 minutes",
         thumbnail: "https://picsum.photos/seed/diversity5/400/200.jpg",
-        recommended: false
+        recommended: false,
+        startUrl: "course-detail.html"
     },
     {
         id: 6,
         title: "Medication Administration",
-        category: "medication",
+        category: "Medicines Management",
+        audience: ["Care Assistant", "Senior Care Assistant", "Nurse", "Other staff"],
+        collections: ["Care Essentials collection"],
         chapters: 18,
         duration: "45-60 minutes",
         thumbnail: "https://picsum.photos/seed/medadmin6/400/200.jpg",
-        recommended: false
+        recommended: false,
+        startUrl: "course-detail.html"
     },
     {
         id: 7,
         title: "PEG Feed Training",
-        category: "clinical",
+        category: "Complex Care",
+        audience: ["Care Assistant", "Senior Care Assistant", "Nurse"],
+        collections: [],
         chapters: 14,
         duration: "35-50 minutes",
         thumbnail: "https://picsum.photos/seed/pegfeed7/400/200.jpg",
-        recommended: false
+        recommended: false,
+        startUrl: "course-detail.html"
     },
     {
         id: 8,
         title: "Safeguarding Adults",
-        category: "safeguarding",
+        category: "Statutory and Mandatory",
+        audience: ["Care Assistant", "Senior Care Assistant", "Registered Manager", "Other staff"],
+        collections: ["Advanced Safeguarding collection (L3)"],
         chapters: 16,
         duration: "40-55 minutes",
         thumbnail: "https://picsum.photos/seed/safeguarding8/400/200.jpg",
-        recommended: false
+        recommended: false,
+        startUrl: "course-detail.html"
     },
     {
         id: 9,
         title: "Infection Control",
-        category: "health",
+        category: "Health and Safety",
+        audience: ["Care Assistant", "Senior Care Assistant", "Nurse", "Other staff"],
+        collections: ["Care Essentials collection"],
         chapters: 11,
         duration: "20-30 minutes",
         thumbnail: "https://picsum.photos/seed/infection9/400/200.jpg",
-        recommended: false
+        recommended: false,
+        startUrl: "course-detail.html"
     }
 ];
+
+function parseDurationToMinutes(durationLabel) {
+    // Expected examples: "0-10 minutes", "20-30 minutes", "40-60 minutes", "30-45 minutes"
+    const match = durationLabel.match(/(\d+)\s*-\s*(\d+)/);
+    if (match) return { min: Number(match[1]), max: Number(match[2]) };
+    return null;
+}
+
+function matchesDurationBucket(durationLabel, bucket) {
+    if (!bucket) return true;
+    const parsed = parseDurationToMinutes(durationLabel);
+    if (!parsed) return false;
+
+    if (bucket === "60+") return parsed.max >= 60;
+
+    const match = bucket.match(/(\d+)\s*-\s*(\d+)/);
+    if (!match) return true;
+    const bucketMin = Number(match[1]);
+    const bucketMax = Number(match[2]);
+    // Overlap match (best UX for ranges)
+    return parsed.min <= bucketMax && parsed.max >= bucketMin;
+}
 
 // Collections data
 const collections = [
@@ -286,13 +335,32 @@ function handleSignup() {
 }
 
 // Course loading
-function loadCourses(category = 'all') {
+function getActiveCourseFilters() {
+    const category = document.getElementById('filterCategory')?.value ?? "";
+    const audience = document.getElementById('filterAudience')?.value ?? "";
+    const duration = document.getElementById('filterDuration')?.value ?? "";
+    const collection = document.getElementById('filterCollection')?.value ?? "";
+    const searchTerm = (document.getElementById('searchInput')?.value ?? "").trim().toLowerCase();
+
+    return { category, audience, duration, collection, searchTerm };
+}
+
+function filterCourses(allCourses, filters) {
+    return allCourses.filter((course) => {
+        if (filters.category && course.category !== filters.category) return false;
+        if (filters.audience && !(course.audience || []).includes(filters.audience)) return false;
+        if (filters.collection && !(course.collections || []).includes(filters.collection)) return false;
+        if (filters.duration && !matchesDurationBucket(course.duration, filters.duration)) return false;
+        if (filters.searchTerm && !course.title.toLowerCase().includes(filters.searchTerm)) return false;
+        return true;
+    });
+}
+
+function loadCourses() {
     const courseGrid = document.getElementById('courseGrid');
     if (!courseGrid) return;
 
-    const filteredCourses = category === 'all' 
-        ? courses 
-        : courses.filter(course => course.category === category);
+    const filteredCourses = filterCourses(courses, getActiveCourseFilters());
 
     courseGrid.innerHTML = '';
     
@@ -305,6 +373,7 @@ function loadCourses(category = 'all') {
 function createCourseCard(course) {
     const card = document.createElement('div');
     card.className = 'course-card bg-white rounded-lg shadow-md overflow-hidden';
+    const startHref = course.startUrl || 'course-detail.html';
     
     card.innerHTML = `
         <img src="${course.thumbnail}" alt="${course.title}" class="w-full h-48 object-cover">
@@ -314,9 +383,9 @@ function createCourseCard(course) {
                 <span>${course.chapters} chapters</span>
                 <span>${course.duration}</span>
             </div>
-            <button class="w-full border-2 border-teal-600 text-teal-600 py-2 rounded-md hover:bg-teal-600 hover:text-white transition-colors">
+            <a href="${startHref}" class="w-full block text-center border-2 border-teal-600 text-teal-600 py-2 rounded-md hover:bg-teal-600 hover:text-white transition-colors no-underline font-medium">
                 Start training
-            </button>
+            </a>
         </div>
     `;
     
@@ -328,35 +397,27 @@ function setupSearch() {
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            const filteredCourses = courses.filter(course => 
-                course.title.toLowerCase().includes(searchTerm)
-            );
-            
-            const courseGrid = document.getElementById('courseGrid');
-            if (courseGrid) {
-                courseGrid.innerHTML = '';
-                filteredCourses.forEach(course => {
-                    const courseCard = createCourseCard(course);
-                    courseGrid.appendChild(courseCard);
-                });
-            }
+            loadCourses();
         });
     }
 }
 
 // Filter functionality
 function setupFilters() {
-    const categoryBtns = document.querySelectorAll('.category-btn');
-    categoryBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            categoryBtns.forEach(b => b.classList.remove('active', 'bg-blue-600', 'text-white'));
-            this.classList.add('active', 'bg-blue-600', 'text-white');
-            
-            const category = this.getAttribute('data-category');
-            loadCourses(category);
+    const applyBtn = document.getElementById('applyFiltersBtn');
+    if (applyBtn) applyBtn.addEventListener('click', () => loadCourses());
+
+    const clearBtn = document.getElementById('clearFiltersBtn');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            const ids = ['filterCategory', 'filterAudience', 'filterDuration', 'filterCollection'];
+            ids.forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            loadCourses();
         });
-    });
+    }
 }
 
 // Load recommended courses
@@ -366,6 +427,7 @@ function loadRecommendedCourses() {
 
     const recommendedCourses = courses.filter(course => course.recommended);
     
+    recommendedContainer.innerHTML = '';
     recommendedCourses.forEach(course => {
         const courseCard = createCourseCard(course);
         recommendedContainer.appendChild(courseCard);

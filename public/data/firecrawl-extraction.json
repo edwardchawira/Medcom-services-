@@ -1,0 +1,25 @@
+{
+  "extracted_at": "2026-04-09",
+  "tool": "firecrawl_scrape (user-firecrawl-mcp)",
+  "results": [
+    {
+      "label": "Authenticated chapter URLs (1012–1026, direction=next)",
+      "urls_pattern": "https://academy.florence.co.uk/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9?attempt=…&chapter=…",
+      "outcome": "redirects_to_auth",
+      "markdown_preview": "Sign in with Google … FlorenceAuth",
+      "note": "Lesson body is not available without a logged-in session. Firecrawl cannot scrape gated chapter HTML."
+    },
+    {
+      "label": "Public course marketing page",
+      "url": "https://academy.florence.co.uk/public/courses/prompting-and-assisting-with-medication-in-home-care-43703b95-bdfa-4f0d-b07d-96794ec63da9",
+      "outcome": "success",
+      "used_for_medcom": [
+        "Learning outcomes (LO1–LO8) — paraphrased in Medcom Introduction",
+        "About this course — paraphrased Medcom intro copy",
+        "Course curriculum chapter titles — align sidebar order with Medcom ch1–15",
+        "CPD / NICE / Skills for Care line — short assessment intro"
+      ]
+    }
+  ],
+  "medcom_implementation": "Chapter reader content in js/medication-course-data.js was expanded using public-page structure and original Medcom wording. For full fidelity to gated lessons, export HTML/PDF while logged in and replace chapter HTML manually."
+}

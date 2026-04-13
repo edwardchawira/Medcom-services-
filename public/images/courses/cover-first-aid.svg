@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" role="img" aria-labelledby="t">
+  <title id="t">First aid awareness</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#b91c1c"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="200" fill="url(#bg)" rx="12"/>
+  <rect x="165" y="50" width="70" height="95" rx="8" fill="#fff" opacity=".95"/>
+  <path d="M200 65 L200 130 M170 97.5 L230 97.5" stroke="#dc2626" stroke-width="10" stroke-linecap="round"/>
+  <text x="200" y="175" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="600">First aid</text>
+</svg>

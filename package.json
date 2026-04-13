@@ -1,20 +1,35 @@
 {
-  "name": "e-learn-platform",
+  "name": "medcom",
   "version": "1.0.0",
-  "description": "A modern e-learning platform",
-  "main": "index.html",
+  "private": true,
   "scripts": {
-    "start": "python -m http.server 8000",
-    "dev": "python -m http.server 8000"
+    "clean": "rm -rf .next",
+    "dev": "node scripts/dev.mjs",
+    "dev:3001": "next dev -p 3001",
+    "dev:clean": "npm run clean && npm run dev",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "next lint"
   },
-  "keywords": [
-    "e-learning",
-    "education",
-    "courses"
-  ],
-  "author": "",
-  "license": "MIT",
   "dependencies": {
-    "@dyingc/brave-search-mcp-server": "^2.1.2"
+    "@supabase/ssr": "^0.10.2",
+    "@supabase/supabase-js": "^2.103.0",
+    "@tanstack/react-query": "^5.99.0",
+    "framer-motion": "^11.18.2",
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.16.0",
+    "eslint-config-next": "^15.1.0",
+    "kill-port": "^2.0.1",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.16",
+    "typescript": "^5.7.2"
   }
 }

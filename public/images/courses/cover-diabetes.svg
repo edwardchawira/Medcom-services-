@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" role="img" aria-labelledby="t">
+  <title id="t">Diabetes awareness</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d9488"/>
+      <stop offset="100%" stop-color="#115e59"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="200" fill="url(#bg)" rx="12"/>
+  <g stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round">
+    <rect x="160" y="55" width="80" height="110" rx="10" opacity=".9"/>
+    <path d="M175 95 L225 95 M200 70 L200 130"/>
+    <circle cx="200" cy="95" r="8" fill="#fff" stroke="none"/>
+  </g>
+  <text x="200" y="185" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="600">Diabetes care</text>
+</svg>
