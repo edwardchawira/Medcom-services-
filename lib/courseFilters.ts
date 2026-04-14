@@ -1,4 +1,4 @@
-import type { Course } from "./siteData";
+import type { CatalogListItem } from "./catalogCourse";
 import { matchesDurationBucket } from "./siteData";
 
 export type CourseFilters = {
@@ -10,9 +10,9 @@ export type CourseFilters = {
 };
 
 export function filterCourses(
-  allCourses: Course[],
+  allCourses: CatalogListItem[],
   filters: CourseFilters
-): Course[] {
+): CatalogListItem[] {
   return allCourses.filter((course) => {
     if (filters.category && course.category !== filters.category) return false;
     if (filters.audience && !course.audience.includes(filters.audience))

@@ -3,40 +3,23 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { medicationCourse } from "@/lib/medicationCourseData";
-import { bindChapterMcqs } from "@/lib/bindChapterMcqs";
 import { ActiveLearningChrome } from "@/components/learning/ActiveLearningChrome";
 import { contentBannerForChapter } from "@/lib/contentThemes";
-import { CheckpointModal } from "@/components/learning/CheckpointModal";
+import { MarkdownContent } from "@/components/MarkdownContent";
+import { ChapterQuiz, type ChapterQuizQuestion } from "@/components/learning/ChapterQuiz";
 import {
-  getCheckpointWhenLeavingStep,
-  isCheckpointPassed,
-  markCheckpointPassedId,
-  type MedicationCheckpoint,
-} from "@/lib/medicationCheckpoints";
+  FlorenceAssessment,
+  type FlorenceAssessmentQuestion,
+} from "@/components/learning/FlorenceAssessment";
 
-const STORAGE_KEY = "medcom_medication_course_v1";
+export type CommunityChapter = {
+  id: string;
+  sort_order: number;
+  title: string;
+  content_md: string;
+};
 
-function loadProgress(): Set<number> {
-  if (typeof window === "undefined") return new Set();
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return new Set();
-    const arr = JSON.parse(raw) as unknown;
-    return new Set(Array.isArray(arr) ? arr : []);
-  } catch {
-    return new Set();
-  }
-}
-
-function saveProgress(set: Set<number>) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
-}
-
-function parseStepParam(
-  s: string,
-  chapterCount: number
-): number {
+function parseStepParam(s: string, chapterCount: number): number {
   if (s === "assessment") return chapterCount;
   const n = parseInt(s, 10);
   if (!Number.isNaN(n) && n >= 1 && n <= chapterCount) return n - 1;
@@ -47,33 +30,69 @@ function progressPercent(idx: number, totalSteps: number) {
   return Math.round(((idx + 1) / totalSteps) * 100);
 }
 
-export function MedicationCourseReader({ stepParam }: { stepParam: string }) {
+function loadProgressKey(slug: string) {
+  return `medcom_community_${slug}_v1`;
+}
+
+function loadProgress(slug: string): Set<number> {
+  if (typeof window === "undefined") return new Set();
+  try {
+    const raw = localStorage.getItem(loadProgressKey(slug));
+    if (!raw) return new Set();
+    const arr = JSON.parse(raw) as unknown;
+    return new Set(Array.isArray(arr) ? arr : []);
+  } catch {
+    return new Set();
+  }
+}
+
+function saveProgress(slug: string, set: Set<number>) {
+  localStorage.setItem(loadProgressKey(slug), JSON.stringify([...set]));
+}
+
+export function CommunityCourseReader({
+  slug,
+  courseTitle,
+  learningOutcomes,
+  chapters,
+  assessmentHtml,
+  stepParam,
+  quizQuestions,
+  assessmentQuestions,
+}: {
+  slug: string;
+  courseTitle: string;
+  learningOutcomes: string[];
+  chapters: CommunityChapter[];
+  assessmentHtml: string;
+  stepParam: string;
+  quizQuestions: ChapterQuizQuestion[];
+  assessmentQuestions: FlorenceAssessmentQuestion[];
+}) {
   const router = useRouter();
-  const course = medicationCourse;
-  const chapters = course.chapters;
-  const totalSteps = chapters.length + 1;
-  const stepIndex = parseStepParam(stepParam, chapters.length);
+  const sorted = [...chapters].sort((a, b) => a.sort_order - b.sort_order);
+  const totalSteps = sorted.length + 1;
+  const stepIndex = parseStepParam(stepParam, sorted.length);
   const bodyRef = useRef<HTMLDivElement>(null);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [completed, setCompleted] = useState<Set<number>>(loadProgress);
-  const [checkpointOpen, setCheckpointOpen] = useState<MedicationCheckpoint | null>(null);
+  const [completed, setCompleted] = useState<Set<number>>(() => loadProgress(slug));
 
-  const isAssessment = stepIndex === chapters.length;
+  const isAssessment = stepIndex === sorted.length;
   const isLast = stepIndex >= totalSteps - 1;
 
   const goToStep = useCallback(
     (idx: number) => {
       if (idx < 0 || idx >= totalSteps) return;
       const path =
-        idx < chapters.length
-          ? `/courses/medication-home-care/learn/${idx + 1}`
-          : `/courses/medication-home-care/learn/assessment`;
+        idx < sorted.length
+          ? `/courses/community/${slug}/learn/${idx + 1}`
+          : `/courses/community/${slug}/learn/assessment`;
       router.push(path);
       window.scrollTo({ top: 0, behavior: "smooth" });
       setSidebarOpen(false);
     },
-    [chapters.length, router, totalSteps]
+    [router, slug, sorted.length, totalSteps]
   );
 
   const advanceToNextStep = useCallback(() => {
@@ -81,7 +100,7 @@ export function MedicationCourseReader({ stepParam }: { stepParam: string }) {
       setCompleted((prev) => {
         const nextSet = new Set(prev);
         nextSet.add(stepIndex);
-        saveProgress(nextSet);
+        saveProgress(slug, nextSet);
         return nextSet;
       });
       goToStep(stepIndex + 1);
@@ -89,40 +108,14 @@ export function MedicationCourseReader({ stepParam }: { stepParam: string }) {
       setCompleted((prev) => {
         const nextSet = new Set(prev);
         nextSet.add(stepIndex);
-        saveProgress(nextSet);
+        saveProgress(slug, nextSet);
         return nextSet;
       });
-      void fetch("/api/progress", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          courseKey: "static-medication-home-care",
-          courseTitle: medicationCourse.courseTitle,
-          status: "completed",
-          progress: 100,
-          resumePath: "/portfolio",
-        }),
-      });
-      alert("Module complete (demo). Progress saved in your browser.");
+      alert("Module complete. Progress saved on this device.");
     }
-  }, [goToStep, stepIndex, totalSteps]);
+  }, [goToStep, slug, stepIndex, totalSteps]);
 
   const next = useCallback(() => {
-    if (stepIndex < totalSteps - 1) {
-      const cp = getCheckpointWhenLeavingStep(stepIndex);
-      if (cp && !isCheckpointPassed(cp.id)) {
-        setCheckpointOpen(cp);
-        return;
-      }
-    }
-    advanceToNextStep();
-  }, [advanceToNextStep, stepIndex, totalSteps]);
-
-  const handleCheckpointPassed = useCallback(() => {
-    setCheckpointOpen((prev) => {
-      if (prev) markCheckpointPassedId(prev.id);
-      return null;
-    });
     advanceToNextStep();
   }, [advanceToNextStep]);
 
@@ -130,15 +123,10 @@ export function MedicationCourseReader({ stepParam }: { stepParam: string }) {
     if (stepIndex > 0) goToStep(stepIndex - 1);
   }, [goToStep, stepIndex]);
 
-  useEffect(() => {
-    const root = bodyRef.current;
-    if (!root) return;
-    bindChapterMcqs(root);
-  }, [stepIndex, isAssessment]);
+  // Community courses use structured quiz UI + markdown content (no HTML binding).
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (checkpointOpen) return;
       const tag = (e.target as HTMLElement)?.tagName || "";
       if (tag === "INPUT" || tag === "TEXTAREA" || (e.target as HTMLElement).isContentEditable)
         return;
@@ -152,45 +140,26 @@ export function MedicationCourseReader({ stepParam }: { stepParam: string }) {
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [checkpointOpen, next, prev, stepIndex]);
+  }, [next, prev, stepIndex]);
 
-  const ch = !isAssessment ? chapters[stepIndex] : null;
+  const ch = !isAssessment ? sorted[stepIndex] : null;
   const title = isAssessment
-    ? "Assessment"
+    ? "Final assessment"
     : `Chapter ${stepIndex + 1}: ${ch?.title ?? ""}`;
   const meta = isAssessment
     ? `Final step • ${totalSteps} of ${totalSteps}`
-    : `Chapter ${stepIndex + 1} of ${chapters.length} • ${progressPercent(stepIndex, totalSteps)}% through module`;
-  const bodyHtml = isAssessment
-    ? course.assessmentHtml
-    : ch?.html ?? "";
+    : `Chapter ${stepIndex + 1} of ${sorted.length} • ${progressPercent(stepIndex, totalSteps)}% through module`;
+  const bodyMd = isAssessment ? assessmentHtml : ch?.content_md ?? "";
   const pct = progressPercent(stepIndex, totalSteps);
-
-  useEffect(() => {
-    void fetch("/api/progress", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        courseKey: "static-medication-home-care",
-        courseTitle: medicationCourse.courseTitle,
-        status: "in_progress",
-        progress: pct,
-        resumePath: isAssessment
-          ? "/courses/medication-home-care/learn/assessment"
-          : `/courses/medication-home-care/learn/${stepIndex + 1}`,
-      }),
-    });
-  }, [isAssessment, pct, stepIndex]);
+  const outcomes =
+    learningOutcomes.length > 0
+      ? learningOutcomes
+      : [
+          "Work through each chapter and use the questions at the end to check understanding.",
+        ];
 
   return (
     <>
-      {checkpointOpen ? (
-        <CheckpointModal
-          checkpoint={checkpointOpen}
-          onPassed={handleCheckpointPassed}
-          onStay={() => setCheckpointOpen(null)}
-        />
-      ) : null}
       <nav className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
@@ -219,7 +188,7 @@ export function MedicationCourseReader({ stepParam }: { stepParam: string }) {
             </div>
             <div className="hidden md:flex md:items-center md:space-x-6">
               <Link
-                href="/courses/medication-home-care/overview"
+                href={`/courses/community/${slug}/overview`}
                 className="text-sm text-teal-700 hover:text-teal-900 font-medium"
               >
                 ← Course overview
@@ -250,6 +219,7 @@ export function MedicationCourseReader({ stepParam }: { stepParam: string }) {
       />
 
       <div className="flex learning-main max-w-7xl mx-auto relative">
+        {!isAssessment ? (
         <aside
           className={`fixed md:sticky md:top-16 top-0 left-0 z-[95] w-72 max-w-[85vw] h-[calc(100vh-4rem)] md:h-[calc(100vh-4rem)] bg-white border-r border-gray-200 overflow-y-auto transform transition-transform duration-200 ease-out ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
@@ -260,9 +230,7 @@ export function MedicationCourseReader({ stepParam }: { stepParam: string }) {
               <p className="text-xs font-bold text-gray-400 uppercase tracking-wide">
                 Course menu
               </p>
-              <p className="text-sm font-semibold text-gray-900 mt-1">
-                Prompting &amp; medication
-              </p>
+              <p className="text-sm font-semibold text-gray-900 mt-1 line-clamp-3">{courseTitle}</p>
             </div>
             <button
               type="button"
@@ -276,7 +244,7 @@ export function MedicationCourseReader({ stepParam }: { stepParam: string }) {
           <nav className="p-3" aria-label="Chapters">
             <p className="text-xs font-semibold text-gray-500 px-2 mb-2">Chapters</p>
             <div className="space-y-0.5">
-              {chapters.map((chapter, i) => {
+              {sorted.map((chapter, i) => {
                 const done = completed.has(i);
                 const active = i === stepIndex && !isAssessment;
                 return (
@@ -290,9 +258,7 @@ export function MedicationCourseReader({ stepParam }: { stepParam: string }) {
                     }`}
                     onClick={() => goToStep(i)}
                   >
-                    <span className="font-medium text-gray-500 w-6 inline-block">
-                      {i + 1}
-                    </span>
+                    <span className="font-medium text-gray-500 w-6 inline-block">{i + 1}</span>
                     <span className="align-middle">{chapter.title}</span>
                     {done ? (
                       <i className="fas fa-check-circle text-green-600 float-right mt-0.5" aria-hidden />
@@ -307,7 +273,7 @@ export function MedicationCourseReader({ stepParam }: { stepParam: string }) {
                     ? "bg-teal-50 border-teal-200 text-teal-900 font-semibold"
                     : "border-transparent text-gray-700 hover:bg-gray-50"
                 }`}
-                onClick={() => goToStep(chapters.length)}
+                onClick={() => goToStep(sorted.length)}
               >
                 <span className="font-medium text-gray-500 w-6 inline-block">
                   <i className="fas fa-clipboard-check" aria-hidden />
@@ -316,60 +282,79 @@ export function MedicationCourseReader({ stepParam }: { stepParam: string }) {
               </button>
             </div>
           </nav>
-          <div className="p-4 border-t border-gray-100 text-xs text-gray-500">
-            <p>
-              Reference URLs (Florence) are listed in{" "}
-              <code className="bg-gray-100 px-1 rounded">data/chapters.json</code> for mapping.
-            </p>
-          </div>
         </aside>
+        ) : null}
 
         <main className="flex-1 min-w-0 p-4 md:p-8 lg:pl-8 pb-28 md:pb-32">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
-              <p className="text-sm text-gray-600 mt-1">{meta}</p>
-              <p className="sr-only" aria-live="polite">
-                {title}. {meta}.
-              </p>
-            </div>
-            <div className="w-full sm:w-56">
-              <div className="flex justify-between text-xs text-gray-600 mb-1">
-                <span>Progress</span>
-                <span aria-live="polite">{pct}%</span>
+          {/* Record progress for home dashboard */}
+          <ProgressReporter
+            courseKey={`community-${slug}`}
+            courseTitle={courseTitle}
+            status={isAssessment && isLast ? "completed" : "in_progress"}
+            progress={pct}
+            resumePath={
+              isAssessment
+                ? `/courses/community/${slug}/learn/assessment`
+                : `/courses/community/${slug}/learn/${stepIndex + 1}`
+            }
+          />
+          {!isAssessment ? (
+            <>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                <div>
+                  <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+                  <p className="text-sm text-gray-600 mt-1">{meta}</p>
+                  <p className="sr-only" aria-live="polite">
+                    {title}. {meta}.
+                  </p>
+                </div>
+                <div className="w-full sm:w-56">
+                  <div className="flex justify-between text-xs text-gray-600 mb-1">
+                    <span>Progress</span>
+                    <span aria-live="polite">{pct}%</span>
+                  </div>
+                  <div
+                    className="h-2 bg-gray-200 rounded-full overflow-hidden"
+                    role="progressbar"
+                    aria-valuenow={pct}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-label="Course progress"
+                  >
+                    <div
+                      className="h-full bg-teal-600 rounded-full transition-all duration-500 ease-out"
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                </div>
               </div>
-              <div
-                className="h-2 bg-gray-200 rounded-full overflow-hidden"
-                role="progressbar"
-                aria-valuenow={pct}
-                aria-valuemin={0}
-                aria-valuemax={100}
-                aria-label="Course progress"
-              >
-                <div
-                  className="h-full bg-teal-600 rounded-full transition-all duration-500 ease-out"
-                  style={{ width: `${pct}%` }}
-                />
-              </div>
-            </div>
-          </div>
 
-          <ActiveLearningChrome
-            stepKey={stepParam}
-            stepIndex={stepIndex}
-            totalContentSteps={chapters.length}
-            isAssessment={isAssessment}
-            chapterTitle={ch?.title}
-            learningOutcomes={course.learningOutcomes}
-            estimatedMinutes={isAssessment ? 5 : 3}
-            contentBannerSrc={isAssessment ? undefined : contentBannerForChapter(stepIndex)}
-          >
-            <div
-              ref={bodyRef}
-              className="max-w-none text-gray-800 leading-relaxed [&_h3]:text-lg [&_h3]:font-semibold [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_a]:text-teal-700 [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-teal-900"
-              dangerouslySetInnerHTML={{ __html: bodyHtml }}
-            />
-          </ActiveLearningChrome>
+              <ActiveLearningChrome
+                stepKey={stepParam}
+                stepIndex={stepIndex}
+                totalContentSteps={sorted.length}
+                isAssessment={false}
+                chapterTitle={ch?.title}
+                learningOutcomes={outcomes}
+                estimatedMinutes={3}
+                contentBannerSrc={contentBannerForChapter(stepIndex)}
+              >
+                <div ref={bodyRef}>
+                  <MarkdownContent markdown={bodyMd} />
+                </div>
+              </ActiveLearningChrome>
+            </>
+          ) : null}
+
+          {!isAssessment && quizQuestions.length > 0 ? (
+            <ChapterQuiz questions={quizQuestions} />
+          ) : null}
+
+          {isAssessment && assessmentQuestions.length > 0 ? (
+            <div className="mt-2">
+              <FlorenceAssessment questions={assessmentQuestions} questionsPerPage={2} />
+            </div>
+          ) : null}
         </main>
       </div>
 
@@ -410,4 +395,33 @@ export function MedicationCourseReader({ stepParam }: { stepParam: string }) {
       </footer>
     </>
   );
+}
+
+function ProgressReporter({
+  courseKey,
+  courseTitle,
+  status,
+  progress,
+  resumePath,
+}: {
+  courseKey: string;
+  courseTitle: string;
+  status: "in_progress" | "completed";
+  progress: number;
+  resumePath: string;
+}) {
+  useEffect(() => {
+    void fetch("/api/progress", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        courseKey,
+        courseTitle,
+        status,
+        progress,
+        resumePath,
+      }),
+    });
+  }, [courseKey, courseTitle, progress, resumePath, status]);
+  return null;
 }

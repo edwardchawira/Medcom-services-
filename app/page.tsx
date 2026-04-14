@@ -4,10 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteNav } from "@/components/SiteNav";
 import { useMe } from "@/lib/auth/useMe";
+import { useDashboard } from "@/lib/dashboard/useDashboard";
 
 export default function HomePage() {
   const { data } = useMe();
   const name = data && "user" in data && data.user ? data.user.fullName : "there";
+  const authed = !!(data && "user" in data && data.user);
+  const dash = useDashboard();
+  const dashName = dash.data?.user?.fullName;
+  const displayName = dashName || name;
+  const certificatesCount = dash.data?.certificatesCount ?? 0;
+  const continueCourse = dash.data?.continueCourse ?? null;
+  const recent = dash.data?.recentActivity ?? [];
 
   return (
     <>
@@ -47,6 +55,15 @@ export default function HomePage() {
                   <i className="fas fa-graduation-cap mr-2 text-sm" aria-hidden />
                   My learning
                 </Link>
+                {authed ? (
+                  <Link
+                    href="/courses/upload"
+                    className="inline-flex items-center justify-center rounded-lg border border-teal-200 bg-white/90 px-5 py-2.5 text-sm font-semibold text-teal-900 shadow-sm transition hover:bg-teal-50 no-underline"
+                  >
+                    <i className="fas fa-cloud-arrow-up mr-2 text-sm" aria-hidden />
+                    Upload a course
+                  </Link>
+                ) : null}
               </div>
             </div>
             <div className="order-1 lg:order-2">
@@ -71,8 +88,10 @@ export default function HomePage() {
               <div className="avatar-circle w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center">
                 <i className="fas fa-user text-2xl" aria-hidden />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">Peter Usieki</h3>
-              <p className="text-sm text-gray-600 mb-4">2 Certificates</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-1">{displayName}</h3>
+              <p className="text-sm text-gray-600 mb-4">
+                {dash.isLoading ? "Loading…" : `${certificatesCount} Certificate${certificatesCount === 1 ? "" : "s"}`}
+              </p>
               <Link
                 href="/portfolio"
                 className="btn-teal inline-block w-full py-2 rounded-md text-center no-underline text-white hover:opacity-90 transition-opacity"
@@ -86,17 +105,28 @@ export default function HomePage() {
             <div className="text-center text-white">
               <i className="fas fa-clipboard text-3xl mb-4" aria-hidden />
               <h3 className="text-lg font-semibold mb-3">Continue where you left off…</h3>
-              <p className="text-sm mb-2 opacity-90">
-                You&apos;re 44% through Basic First Aid Awareness
-              </p>
-              <div className="w-full bg-white bg-opacity-30 rounded-full h-2 mb-4">
-                <div className="bg-white h-2 rounded-full w-[44%]" />
-              </div>
+              {continueCourse ? (
+                <>
+                  <p className="text-sm mb-2 opacity-90">
+                    You&apos;re {continueCourse.progress}% through {continueCourse.title}
+                  </p>
+                  <div className="w-full bg-white bg-opacity-30 rounded-full h-2 mb-4">
+                    <div
+                      className="bg-white h-2 rounded-full transition-all duration-500 ease-out"
+                      style={{ width: `${continueCourse.progress}%` }}
+                    />
+                  </div>
+                </>
+              ) : (
+                <p className="text-sm mb-4 opacity-90">
+                  Start a course to see your progress here.
+                </p>
+              )}
               <Link
-                href="/my-learning"
+                href={continueCourse?.resumePath ?? "/courses"}
                 className="btn-teal-outline inline-block w-full py-2 rounded-md text-center no-underline"
               >
-                View my learning
+                {continueCourse ? "Resume" : "Browse courses"}
               </Link>
             </div>
           </div>
@@ -137,44 +167,43 @@ export default function HomePage() {
         <section>
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Recent Activity</h2>
           <div className="card p-6">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between py-3 border-b border-gray-200">
-                <div className="flex items-center">
-                  <div className="bg-green-100 text-green-600 p-2 rounded-full mr-4">
-                    <i className="fas fa-check" aria-hidden />
+            {dash.isLoading ? (
+              <p className="text-sm text-gray-600">Loading activity…</p>
+            ) : recent.length === 0 ? (
+              <p className="text-sm text-gray-600">
+                No activity yet. Start a course and your progress will appear here.
+              </p>
+            ) : (
+              <div className="space-y-4">
+                {recent.map((a, idx) => (
+                  <div
+                    key={`${a.updatedAt}-${idx}`}
+                    className={`flex items-center justify-between py-3 ${idx < recent.length - 1 ? "border-b border-gray-200" : ""}`}
+                  >
+                    <div className="flex items-center">
+                      <div
+                        className={`${a.kind === "completed" ? "bg-green-100 text-green-600" : "bg-blue-100 text-blue-600"} p-2 rounded-full mr-4`}
+                      >
+                        <i className={`fas ${a.kind === "completed" ? "fa-check" : "fa-play"}`} aria-hidden />
+                      </div>
+                      <div>
+                        <p className="font-medium">
+                          {a.kind === "completed" ? "Completed" : "Started"} {a.title}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          {new Date(a.updatedAt).toLocaleDateString()}
+                        </p>
+                      </div>
+                    </div>
+                    <span
+                      className={`${a.kind === "completed" ? "text-green-600" : "text-blue-600"} font-medium`}
+                    >
+                      {a.badge}
+                    </span>
                   </div>
-                  <div>
-                    <p className="font-medium">Completed Medication Administration</p>
-                    <p className="text-sm text-gray-600">2 days ago</p>
-                  </div>
-                </div>
-                <span className="text-green-600 font-medium">+ Certificate</span>
+                ))}
               </div>
-              <div className="flex items-center justify-between py-3 border-b border-gray-200">
-                <div className="flex items-center">
-                  <div className="bg-blue-100 text-blue-600 p-2 rounded-full mr-4">
-                    <i className="fas fa-play" aria-hidden />
-                  </div>
-                  <div>
-                    <p className="font-medium">Started Basic First Aid Awareness</p>
-                    <p className="text-sm text-gray-600">5 days ago</p>
-                  </div>
-                </div>
-                <span className="text-blue-600 font-medium">In Progress</span>
-              </div>
-              <div className="flex items-center justify-between py-3">
-                <div className="flex items-center">
-                  <div className="bg-green-100 text-green-600 p-2 rounded-full mr-4">
-                    <i className="fas fa-check" aria-hidden />
-                  </div>
-                  <div>
-                    <p className="font-medium">Completed PEG Feed Training</p>
-                    <p className="text-sm text-gray-600">1 week ago</p>
-                  </div>
-                </div>
-                <span className="text-green-600 font-medium">+ Certificate</span>
-              </div>
-            </div>
+            )}
           </div>
         </section>
       </main>

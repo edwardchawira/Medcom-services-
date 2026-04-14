@@ -3,10 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import {
+  communityCourseToCatalog,
+  staticCourseToCatalog,
+  type CommunityCourseListDto,
+} from "@/lib/catalogCourse";
 import { courses as allCourses } from "@/lib/siteData";
 import { filterCourses, type CourseFilters } from "@/lib/courseFilters";
 
 const categories = [
+  "Community",
   "Medicines Management",
   "Long Term Conditions",
   "Fundamentals",
@@ -40,6 +47,28 @@ export function CoursesExplorer() {
   const [collection, setCollection] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
+  const staticCatalog = useMemo(() => allCourses.map(staticCourseToCatalog), []);
+
+  const { data: communityRows } = useQuery({
+    queryKey: ["community-courses-catalog"],
+    queryFn: async () => {
+      const res = await fetch("/api/community-courses");
+      if (!res.ok) return [] as CommunityCourseListDto[];
+      const j = (await res.json()) as { courses?: CommunityCourseListDto[] };
+      return j.courses ?? [];
+    },
+  });
+
+  const communityCatalog = useMemo(
+    () => (communityRows ?? []).map(communityCourseToCatalog),
+    [communityRows]
+  );
+
+  const mergedCatalog = useMemo(
+    () => [...staticCatalog, ...communityCatalog],
+    [communityCatalog, staticCatalog]
+  );
+
   const filters: CourseFilters = useMemo(
     () => ({
       category,
@@ -52,14 +81,15 @@ export function CoursesExplorer() {
   );
 
   const filtered = useMemo(
-    () => filterCourses(allCourses, filters),
-    [filters]
+    () => filterCourses(mergedCatalog, filters),
+    [filters, mergedCatalog]
   );
 
-  const recommended = useMemo(
-    () => allCourses.filter((c) => c.recommended),
-    []
-  );
+  const recommended = useMemo(() => {
+    const stat = staticCatalog.filter((c) => c.recommended);
+    const comm = communityCatalog.filter((c) => c.recommended);
+    return [...stat, ...comm];
+  }, [communityCatalog, staticCatalog]);
 
   function clearFilters() {
     setCategory("");
@@ -70,7 +100,15 @@ export function CoursesExplorer() {
 
   return (
     <div className="content-container max-w-6xl mx-auto px-4 sm:px-8 pt-9 pb-12">
-      <h1 className="text-2xl font-bold text-gray-900 mb-8">Courses</h1>
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+        <h1 className="text-2xl font-bold text-gray-900">Courses</h1>
+        <Link
+          href="/courses/upload"
+          className="text-sm font-semibold text-teal-700 hover:text-teal-900 whitespace-nowrap"
+        >
+          Upload a course
+        </Link>
+      </div>
 
       <div className="mb-10">
         <h2 className="text-lg font-semibold text-gray-800 mb-4">Recommended for you</h2>

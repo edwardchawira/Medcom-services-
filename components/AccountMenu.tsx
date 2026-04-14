@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { useMe } from "@/lib/auth/useMe";
@@ -56,6 +57,15 @@ export function AccountMenu() {
             role="menu"
           >
             <div className="p-2">
+              <Link
+                href="/courses/upload"
+                role="menuitem"
+                onClick={() => setOpen(false)}
+                className="w-full flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-teal-800 hover:bg-teal-50 transition"
+              >
+                <i className="fas fa-cloud-arrow-up text-teal-600 w-4 text-center" aria-hidden />
+                Upload a course
+              </Link>
               <MenuItem icon="fa-gear" label="Settings" onClick={() => setOpen(false)} />
               <MenuItem icon="fa-circle-question" label="FAQs" onClick={() => setOpen(false)} />
               <MenuItem icon="fa-receipt" label="Purchases" onClick={() => setOpen(false)} />

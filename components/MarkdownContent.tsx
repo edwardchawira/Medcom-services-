@@ -1,0 +1,75 @@
+"use client";
+
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
+export function MarkdownContent({ markdown }: { markdown: string }) {
+  const parts = splitVideoEmbeds(markdown);
+  return (
+    <div className="max-w-none text-gray-800 [&_p]:my-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-1 [&_a]:text-teal-700 [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-teal-900 [&_code]:bg-gray-100 [&_code]:px-1 [&_code]:rounded">
+      {parts.map((p, idx) =>
+        p.kind === "markdown" ? (
+          <Markdown key={idx} remarkPlugins={[remarkGfm]}>
+            {p.value}
+          </Markdown>
+        ) : (
+          <figure
+            key={idx}
+            className="my-6 overflow-hidden rounded-xl border border-gray-200 bg-black/95"
+          >
+            <div className="aspect-square w-full bg-black">
+              <video
+                src={p.url}
+                controls
+                className="h-full w-full object-cover"
+                preload="metadata"
+              />
+            </div>
+            {p.caption ? (
+              <figcaption className="bg-white px-4 py-2 text-sm text-gray-700 border-t border-gray-200">
+                {p.caption}
+              </figcaption>
+            ) : null}
+          </figure>
+        )
+      )}
+    </div>
+  );
+}
+
+type Part =
+  | { kind: "markdown"; value: string }
+  | { kind: "video"; url: string; caption: string | null };
+
+/**
+ * Supports non-technical embeds in plain text:
+ * `::video[Optional caption](https://...mp4)`
+ */
+function splitVideoEmbeds(input: string): Part[] {
+  const lines = input.split(/\r?\n/);
+  const out: Part[] = [];
+  let buf: string[] = [];
+
+  const flush = () => {
+    const v = buf.join("\n").trimEnd();
+    if (v) out.push({ kind: "markdown", value: v + "\n" });
+    buf = [];
+  };
+
+  for (const line of lines) {
+    const m = line.match(/^::video(?:\[(.*?)\])?\((.*?)\)\s*$/);
+    if (m) {
+      flush();
+      out.push({
+        kind: "video",
+        caption: (m[1] ?? "").trim() || null,
+        url: (m[2] ?? "").trim(),
+      });
+      continue;
+    }
+    buf.push(line);
+  }
+  flush();
+  return out.length ? out : [{ kind: "markdown", value: input }];
+}
+

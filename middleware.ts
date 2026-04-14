@@ -5,7 +5,10 @@ import { createServerClient } from "@supabase/ssr";
 function isPublicPath(pathname: string) {
   if (pathname === "/welcome") return true;
   if (pathname.startsWith("/api/auth/")) return true;
+  // Never redirect API routes (return proper HTTP status codes instead).
+  if (pathname.startsWith("/api/")) return true;
   if (pathname === "/api/me") return true;
+  if (pathname.startsWith("/api/community-courses")) return true;
   if (pathname.startsWith("/_next/")) return true;
   if (pathname === "/favicon.ico") return true;
   if (pathname.startsWith("/docs/")) return true;
@@ -33,8 +36,9 @@ export async function middleware(req: NextRequest) {
     cookies: {
       getAll: () => req.cookies.getAll(),
       setAll: (cookiesToSet) => {
-        cookiesToSet.forEach(({ name, value }) => req.cookies.set(name, value));
-        res = NextResponse.next({ request: req });
+        // In middleware, write cookies on the *response* only.
+        // Mutating req.cookies can break session persistence across refreshes.
+        res = NextResponse.next({ request: { headers: req.headers } });
         cookiesToSet.forEach(({ name, value, options }) => res.cookies.set(name, value, options));
       },
     },
