@@ -74,10 +74,10 @@ export function FlorenceAssessment({
 
   return (
     <section className="mx-auto w-full max-w-[720px] pt-6 sm:pt-10">
-      <h2 className="text-4xl sm:text-5xl font-medium tracking-tight text-gray-800">
+      <h2 className="text-4xl sm:text-5xl font-medium tracking-tight text-slate-800">
         {title}
       </h2>
-      <p className="mt-3 text-sm text-gray-500">-- {page + 1} of {totalPages} --</p>
+      <p className="mt-3 text-sm text-slate-500">-- {page + 1} of {totalPages} --</p>
 
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
@@ -90,10 +90,10 @@ export function FlorenceAssessment({
         >
           {current.questions.map((q) => (
             <article key={q.id} className="pt-8">
-              <h3 className="text-2xl sm:text-[28px] leading-tight font-medium text-gray-900">
+              <h3 className="text-2xl sm:text-[28px] leading-tight font-medium text-slate-900">
                 {q.prompt}
               </h3>
-              <p className="mt-1 text-xl sm:text-2xl text-gray-900">[{q.loTag}]</p>
+              <p className="mt-1 text-xl sm:text-2xl text-slate-900">[{q.loTag}]</p>
 
               <fieldset className="mt-10 space-y-7" aria-label={q.prompt}>
                 {q.options.map((opt, oi) => {
@@ -101,7 +101,7 @@ export function FlorenceAssessment({
                   const showResult = submitted && q.correctIndex != null;
                   const correct = showResult ? oi === q.correctIndex : false;
                   const wrongPick = showResult ? selected && oi !== q.correctIndex : false;
-                  const baseText = showResult && (correct || wrongPick) ? "text-gray-900" : "text-gray-800";
+                  const baseText = showResult && (correct || wrongPick) ? "text-slate-900" : "text-slate-800";
                   return (
                     <label
                       key={`${q.id}-${oi}`}
@@ -135,7 +135,7 @@ export function FlorenceAssessment({
             type="button"
             onClick={() => setPage((p) => clamp(p - 1, 0, totalPages - 1))}
             disabled={page === 0}
-            className="text-sm font-medium text-gray-600 hover:text-gray-900 disabled:opacity-40"
+            className="text-sm font-medium text-slate-600 hover:text-slate-900 disabled:opacity-40"
           >
             Prev
           </button>
@@ -143,7 +143,7 @@ export function FlorenceAssessment({
             <button
               type="button"
               onClick={() => setPage((p) => clamp(p + 1, 0, totalPages - 1))}
-              className="text-sm font-medium text-gray-600 hover:text-gray-900"
+              className="text-sm font-medium text-slate-600 hover:text-slate-900"
             >
               Next
             </button>
@@ -158,11 +158,11 @@ export function FlorenceAssessment({
             </button>
           )}
         </div>
-        <p className="text-sm text-gray-600">{pageLabel}</p>
+        <p className="text-sm text-slate-600">{pageLabel}</p>
       </footer>
 
       {submitted ? (
-        <p className="mt-3 text-sm text-gray-700">
+        <p className="mt-3 text-sm text-slate-700">
           Score: {score}/{totalQuestions}
         </p>
       ) : null}

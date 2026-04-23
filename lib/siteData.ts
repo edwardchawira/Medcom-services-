@@ -8,9 +8,21 @@ export type Course = {
   duration: string;
   thumbnail: string;
   recommended: boolean;
-  /** Next.js path */
+  /** URL slug used for course detail routes. */
+  slug: string;
+  /** Course detail / overview screen (Next.js route). */
+  detailPath: string;
+  /** Start learning route (may point to reader or overview if not yet interactive). */
   startPath: string;
 };
+
+function slugifyCourseTitle(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
 
 export const courses: Course[] = [
   {
@@ -23,7 +35,9 @@ export const courses: Course[] = [
     duration: "20-30 minutes",
     thumbnail: "/images/courses/cover-medication.png",
     recommended: true,
-    startPath: "/courses/medication-home-care/overview",
+    slug: "medication-home-care",
+    detailPath: "/courses/medication-home-care/overview",
+    startPath: "/courses/medication-home-care/learn/1",
   },
   {
     id: 2,
@@ -35,7 +49,9 @@ export const courses: Course[] = [
     duration: "0-10 minutes",
     thumbnail: "/images/courses/cover-buccal.png",
     recommended: true,
-    startPath: "/courses/buccal",
+    slug: "buccal",
+    detailPath: "/courses/buccal/overview",
+    startPath: "/courses/buccal/learn/1",
   },
   {
     id: 3,
@@ -47,7 +63,9 @@ export const courses: Course[] = [
     duration: "40-60 minutes",
     thumbnail: "/images/courses/cover-diabetes.png",
     recommended: true,
-    startPath: "/course-detail",
+    slug: slugifyCourseTitle("Diabetes Awareness And Management"),
+    detailPath: `/courses/${slugifyCourseTitle("Diabetes Awareness And Management")}/overview`,
+    startPath: `/courses/${slugifyCourseTitle("Diabetes Awareness And Management")}/learn/1`,
   },
   {
     id: 4,
@@ -59,7 +77,9 @@ export const courses: Course[] = [
     duration: "30-45 minutes",
     thumbnail: "/images/courses/cover-first-aid.png",
     recommended: false,
-    startPath: "/course-detail",
+    slug: slugifyCourseTitle("Basic First Aid Awareness"),
+    detailPath: `/courses/${slugifyCourseTitle("Basic First Aid Awareness")}/overview`,
+    startPath: `/courses/${slugifyCourseTitle("Basic First Aid Awareness")}/learn/1`,
   },
   {
     id: 5,
@@ -76,7 +96,9 @@ export const courses: Course[] = [
     duration: "25-35 minutes",
     thumbnail: "/images/courses/cover-equality.png",
     recommended: false,
-    startPath: "/course-detail",
+    slug: slugifyCourseTitle("Equality, Diversity & LGBTQ+"),
+    detailPath: `/courses/${slugifyCourseTitle("Equality, Diversity & LGBTQ+")}/overview`,
+    startPath: `/courses/${slugifyCourseTitle("Equality, Diversity & LGBTQ+")}/learn/1`,
   },
   {
     id: 6,
@@ -88,7 +110,9 @@ export const courses: Course[] = [
     duration: "45-60 minutes",
     thumbnail: "/images/courses/cover-med-admin.png",
     recommended: false,
-    startPath: "/course-detail",
+    slug: slugifyCourseTitle("Medication Administration"),
+    detailPath: `/courses/${slugifyCourseTitle("Medication Administration")}/overview`,
+    startPath: `/courses/${slugifyCourseTitle("Medication Administration")}/learn/1`,
   },
   {
     id: 7,
@@ -100,7 +124,9 @@ export const courses: Course[] = [
     duration: "35-50 minutes",
     thumbnail: "/images/courses/cover-peg.png",
     recommended: false,
-    startPath: "/course-detail",
+    slug: slugifyCourseTitle("PEG Feed Training"),
+    detailPath: `/courses/${slugifyCourseTitle("PEG Feed Training")}/overview`,
+    startPath: `/courses/${slugifyCourseTitle("PEG Feed Training")}/learn/1`,
   },
   {
     id: 8,
@@ -117,7 +143,9 @@ export const courses: Course[] = [
     duration: "40-55 minutes",
     thumbnail: "/images/courses/cover-safeguarding.png",
     recommended: false,
-    startPath: "/course-detail",
+    slug: slugifyCourseTitle("Safeguarding Adults"),
+    detailPath: `/courses/${slugifyCourseTitle("Safeguarding Adults")}/overview`,
+    startPath: `/courses/${slugifyCourseTitle("Safeguarding Adults")}/learn/1`,
   },
   {
     id: 9,
@@ -129,7 +157,9 @@ export const courses: Course[] = [
     duration: "20-30 minutes",
     thumbnail: "/images/courses/cover-infection.png",
     recommended: false,
-    startPath: "/course-detail",
+    slug: slugifyCourseTitle("Infection Control"),
+    detailPath: `/courses/${slugifyCourseTitle("Infection Control")}/overview`,
+    startPath: `/courses/${slugifyCourseTitle("Infection Control")}/learn/1`,
   },
 ];
 

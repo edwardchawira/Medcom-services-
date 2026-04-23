@@ -80,17 +80,17 @@ export function CheckpointModal({ checkpoint, onPassed, onStay }: Props) {
           <p className="text-xs font-bold uppercase tracking-wide text-teal-800">
             Quick checkpoint
           </p>
-          <h2 id={titleId} className="text-lg font-bold text-gray-900 mt-1">
+          <h2 id={titleId} className="text-lg font-bold text-slate-900 mt-1">
             Before you continue
           </h2>
-          <p id={descId} className="text-sm text-gray-600 mt-1">
+          <p id={descId} className="text-sm text-slate-600 mt-1">
             One question to strengthen what you&apos;ve just covered. You need the best answer to
             move on. You can retry as needed.
           </p>
         </div>
 
         <div className="p-5 space-y-4">
-          <p className="text-base font-medium text-gray-900 leading-snug">{checkpoint.question}</p>
+          <p className="text-base font-medium text-slate-900 leading-snug">{checkpoint.question}</p>
 
           <div className="space-y-2" role="radiogroup" aria-label="Checkpoint answers">
             {checkpoint.options.map((o) => {
@@ -112,10 +112,10 @@ export function CheckpointModal({ checkpoint, onPassed, onStay }: Props) {
                         ? "border-amber-400 bg-amber-50 text-amber-950"
                         : isSel
                           ? "border-teal-500 bg-teal-50 text-teal-950"
-                          : "border-gray-200 bg-white hover:border-teal-300 hover:bg-teal-50/40 text-gray-800"
+                          : "border-slate-200 bg-white hover:border-teal-300 hover:bg-teal-50/40 text-slate-800"
                   } ${passed && !isSel ? "opacity-50" : ""}`}
                 >
-                  <span className="font-semibold text-gray-500 mr-2">{o.key.toUpperCase()}.</span>
+                  <span className="font-semibold text-slate-500 mr-2">{o.key.toUpperCase()}.</span>
                   {o.label}
                 </button>
               );
@@ -140,7 +140,7 @@ export function CheckpointModal({ checkpoint, onPassed, onStay }: Props) {
             <button
               type="button"
               onClick={onStay}
-              className="px-4 py-2.5 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-50"
+              className="px-4 py-2.5 rounded-lg border border-slate-300 text-slate-700 font-medium hover:bg-slate-50"
             >
               Stay on this chapter
             </button>

@@ -39,7 +39,7 @@ export default function WelcomePage() {
                     setAuthMode("login");
                     setAuthOpen(true);
                   }}
-                  className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-50 transition"
+                  className="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 transition"
                 >
                   Log in
                 </button>
@@ -52,13 +52,13 @@ export default function WelcomePage() {
         <section className="card overflow-hidden mb-6">
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
             <div className="p-6 sm:p-8 flex flex-col justify-center">
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+              <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
                 Medcom Pathway to Care collection
               </h1>
-              <p className="mt-2 text-sm sm:text-base text-gray-600 max-w-prose">
+              <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-prose">
                 Learn the fundamentals of the adult social care sector.
               </p>
-              <p className="mt-4 text-sm text-gray-700 font-medium">Free</p>
+              <p className="mt-4 text-sm text-slate-700 font-medium">Free</p>
               <div className="mt-5">
                 <button
                   type="button"
@@ -74,7 +74,7 @@ export default function WelcomePage() {
               </div>
             </div>
 
-            <div className="relative min-h-[220px] lg:min-h-[280px] bg-gray-50">
+            <div className="relative min-h-[220px] lg:min-h-[280px] bg-slate-50">
               <Image
                 src="/images/collections/collection-pathway.png"
                 alt=""
@@ -88,10 +88,10 @@ export default function WelcomePage() {
           </div>
         </section>
 
-        <div className="flex items-center justify-center gap-2 text-gray-400 mb-6">
-          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-gray-400" />
-          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-gray-300" />
-          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-gray-300" />
+        <div className="flex items-center justify-center gap-2 text-slate-400 mb-6">
+          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-slate-300" />
+          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-slate-300" />
         </div>
       </div>
 

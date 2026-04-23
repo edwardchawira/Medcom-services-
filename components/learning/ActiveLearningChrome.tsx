@@ -57,7 +57,7 @@ export function ActiveLearningChrome({
             >
               {isAssessment ? "Assessment focus" : "Learning focus"}
             </p>
-            <p className="mt-1 text-sm text-gray-700">
+            <p className="mt-1 text-sm text-slate-700">
               {isAssessment
                 ? "Apply ideas from the module to short scenarios. Take your time. Accuracy matters more than speed."
                 : "This section is a short learning unit. Read actively: connect each idea to your next visit or handover."}
@@ -72,8 +72,8 @@ export function ActiveLearningChrome({
         </div>
 
         {!isAssessment && outcomes.length > 0 ? (
-          <ul className="mt-4 space-y-2 border-t border-teal-100/80 pt-4 text-sm text-gray-800">
-            <li className="font-semibold text-gray-900">You are building toward:</li>
+          <ul className="mt-4 space-y-2 border-t border-teal-100/80 pt-4 text-sm text-slate-800">
+            <li className="font-semibold text-slate-900">You are building toward:</li>
             {outcomes.slice(0, 2).map((o) => (
               <li key={o} className="flex gap-2 pl-0">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-500" aria-hidden />
@@ -84,19 +84,19 @@ export function ActiveLearningChrome({
         ) : null}
 
         {chapterTitle && !isAssessment ? (
-          <p className="mt-3 text-xs text-gray-500">
-            Section: <span className="font-medium text-gray-700">{chapterTitle}</span> ·{" "}
+          <p className="mt-3 text-xs text-slate-500">
+            Section: <span className="font-medium text-slate-700">{chapterTitle}</span> ·{" "}
             {stepIndex + 1} of {totalContentSteps}
           </p>
         ) : null}
       </div>
 
-      <p className="text-xs text-gray-500 md:text-sm">
-        <kbd className="rounded border border-gray-200 bg-gray-50 px-1.5 py-0.5 text-[0.7rem] font-sans text-gray-700">
+      <p className="text-xs text-slate-500 md:text-sm">
+        <kbd className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[0.7rem] font-sans text-slate-700">
           ←
         </kbd>{" "}
         /{" "}
-        <kbd className="rounded border border-gray-200 bg-gray-50 px-1.5 py-0.5 text-[0.7rem] font-sans text-gray-700">
+        <kbd className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[0.7rem] font-sans text-slate-700">
           →
         </kbd>{" "}
         to move between sections when not typing in a field.
@@ -110,7 +110,7 @@ export function ActiveLearningChrome({
           animate={{ opacity: 1, y: 0 }}
           exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
           transition={{ duration, ease: [0.22, 1, 0.36, 1] }}
-          className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden ring-1 ring-black/[0.03]"
+          className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden ring-1 ring-black/[0.03]"
         >
           <div className="learning-content p-6 md:p-8">
             {contentBannerSrc && !isAssessment ? (

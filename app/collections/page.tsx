@@ -13,7 +13,7 @@ export default function CollectionsPage() {
     <>
       <SiteNav activeOverride="/collections" />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-8">Collections</h1>
+        <h1 className="text-2xl font-bold text-slate-900 mb-8">Collections</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {collections.map((c) => (
             <article
@@ -31,8 +31,8 @@ export default function CollectionsPage() {
                 />
               </div>
               <div className="p-6 flex flex-col flex-1">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{c.name}</h3>
-                <div className="flex justify-between text-sm text-gray-600 mb-4">
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">{c.name}</h3>
+                <div className="flex justify-between text-sm text-slate-600 mb-4">
                   <span>{c.courses} Courses</span>
                   <span>{c.hours} hours</span>
                 </div>

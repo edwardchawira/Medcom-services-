@@ -11,6 +11,7 @@ export type CatalogListItem = {
   duration: string;
   thumbnail: string;
   recommended: boolean;
+  detailPath: string;
   startPath: string;
 };
 
@@ -25,6 +26,7 @@ export function staticCourseToCatalog(c: Course): CatalogListItem {
     duration: c.duration,
     thumbnail: c.thumbnail,
     recommended: c.recommended,
+    detailPath: c.detailPath,
     startPath: c.startPath,
   };
 }
@@ -53,6 +55,7 @@ export function communityCourseToCatalog(c: CommunityCourseListDto): CatalogList
     duration: c.duration,
     thumbnail: c.thumbnail,
     recommended: c.featured,
-    startPath: `/courses/community/${c.slug}/overview`,
+    detailPath: `/courses/community/${c.slug}/overview`,
+    startPath: `/courses/community/${c.slug}/learn/1`,
   };
 }

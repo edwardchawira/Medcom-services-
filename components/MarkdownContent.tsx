@@ -6,7 +6,7 @@ import remarkGfm from "remark-gfm";
 export function MarkdownContent({ markdown }: { markdown: string }) {
   const parts = splitVideoEmbeds(markdown);
   return (
-    <div className="max-w-none text-gray-800 [&_p]:my-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-1 [&_a]:text-teal-700 [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-teal-900 [&_code]:bg-gray-100 [&_code]:px-1 [&_code]:rounded">
+    <div className="max-w-none text-slate-800 [&_p]:my-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-1 [&_a]:text-teal-700 [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-teal-900 [&_code]:bg-slate-100 [&_code]:px-1 [&_code]:rounded">
       {parts.map((p, idx) =>
         p.kind === "markdown" ? (
           <Markdown key={idx} remarkPlugins={[remarkGfm]}>
@@ -15,7 +15,7 @@ export function MarkdownContent({ markdown }: { markdown: string }) {
         ) : (
           <figure
             key={idx}
-            className="my-6 overflow-hidden rounded-xl border border-gray-200 bg-black/95"
+            className="my-6 overflow-hidden rounded-xl border border-slate-200 bg-black/95"
           >
             <div className="aspect-square w-full bg-black">
               <video
@@ -26,7 +26,7 @@ export function MarkdownContent({ markdown }: { markdown: string }) {
               />
             </div>
             {p.caption ? (
-              <figcaption className="bg-white px-4 py-2 text-sm text-gray-700 border-t border-gray-200">
+              <figcaption className="bg-white px-4 py-2 text-sm text-slate-700 border-t border-slate-200">
                 {p.caption}
               </figcaption>
             ) : null}

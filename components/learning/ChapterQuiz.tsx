@@ -46,7 +46,7 @@ export function ChapterQuiz({
   }, 0);
 
   return (
-    <section className="mt-8 rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+    <section className="mt-8 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -54,22 +54,22 @@ export function ChapterQuiz({
         aria-expanded={open}
       >
         <div className="min-w-0">
-          <p className="text-sm font-semibold text-gray-900 truncate">{title}</p>
-          <p className="text-xs text-gray-600 mt-0.5">
+          <p className="text-sm font-semibold text-slate-900 truncate">{title}</p>
+          <p className="text-xs text-slate-600 mt-0.5">
             {submitted
               ? qScoreLabel(score, total)
               : `${answeredCount}/${total} answered • ${pct(answeredCount, total)}% ready`}
           </p>
         </div>
         <div className="flex items-center gap-3 shrink-0">
-          <div className="h-2 w-24 rounded-full bg-gray-200 overflow-hidden" aria-hidden>
+          <div className="h-2 w-24 rounded-full bg-slate-200 overflow-hidden" aria-hidden>
             <div
               className="h-full rounded-full bg-teal-600 transition-all duration-300"
               style={{ width: `${pct(answeredCount, total)}%` }}
             />
           </div>
           <i
-            className={`fas fa-chevron-down text-gray-600 transition-transform ${
+            className={`fas fa-chevron-down text-slate-600 transition-transform ${
               open ? "rotate-180" : ""
             }`}
             aria-hidden
@@ -93,14 +93,14 @@ export function ChapterQuiz({
                 return (
                   <article
                     key={q.id}
-                    className="rounded-xl border border-gray-200 bg-white p-4 sm:p-5"
+                    className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div className="min-w-0">
-                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
                           Question {idx + 1}
                         </p>
-                        <h3 className="mt-1 text-sm sm:text-base font-semibold text-gray-900">
+                        <h3 className="mt-1 text-sm sm:text-base font-semibold text-slate-900">
                           {q.prompt}
                         </h3>
                       </div>
@@ -139,7 +139,7 @@ export function ChapterQuiz({
                                   ? "border-amber-300 bg-amber-50"
                                   : isSelected
                                     ? "border-teal-300 bg-teal-50"
-                                    : "border-gray-200 hover:border-teal-200 hover:bg-gray-50"
+                                    : "border-slate-200 hover:border-teal-200 hover:bg-slate-50"
                             }`}
                           >
                             <div className="flex items-start gap-3">
@@ -151,13 +151,13 @@ export function ChapterQuiz({
                                       ? "border-amber-500 bg-amber-100 text-amber-900"
                                       : isSelected
                                         ? "border-teal-500 bg-teal-100 text-teal-900"
-                                        : "border-gray-300 bg-white text-gray-600"
+                                        : "border-slate-300 bg-white text-slate-600"
                                 }`}
                                 aria-hidden
                               >
                                 {String.fromCharCode(65 + oi)}
                               </span>
-                              <span className="text-sm text-gray-900">{opt}</span>
+                              <span className="text-sm text-slate-900">{opt}</span>
                             </div>
                           </button>
                         );
@@ -165,7 +165,7 @@ export function ChapterQuiz({
                     </div>
 
                     {submitted && q.explanation ? (
-                      <p className="mt-3 text-sm text-gray-700 rounded-lg bg-gray-50 border border-gray-200 px-3 py-2">
+                      <p className="mt-3 text-sm text-slate-700 rounded-lg bg-slate-50 border border-slate-200 px-3 py-2">
                         {q.explanation}
                       </p>
                     ) : null}
@@ -173,10 +173,10 @@ export function ChapterQuiz({
                 );
               })}
 
-              <div className="flex flex-wrap gap-3 items-center justify-between rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
-                <p className="text-sm text-gray-700">
+              <div className="flex flex-wrap gap-3 items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+                <p className="text-sm text-slate-700">
                   {submitted ? (
-                    <span className="font-semibold text-gray-900">{qScoreLabel(score, total)}</span>
+                    <span className="font-semibold text-slate-900">{qScoreLabel(score, total)}</span>
                   ) : (
                     <span>
                       Pick an answer for each question, then submit to see feedback.
@@ -190,7 +190,7 @@ export function ChapterQuiz({
                       setAnswers({});
                       setSubmitted(false);
                     }}
-                    className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-100 transition"
+                    className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-100 transition"
                   >
                     Reset
                   </button>

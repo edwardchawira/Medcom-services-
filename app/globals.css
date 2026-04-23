@@ -7,8 +7,9 @@
 :root {
   --primary-teal: #1a9e9e;
   --primary-teal-hover: #2ab3b3;
-  --bg-light: #eef2f3;
-  --text-dark: #2c3e50;
+  /* Slate-tinted neutrals for a calmer, clinical feel */
+  --bg-light: #f8fafc; /* slate-50 */
+  --text-dark: #0f172a; /* slate-900 */
 }
 
 html {
@@ -16,7 +17,7 @@ html {
 }
 
 body {
-  @apply antialiased text-gray-800;
+  @apply antialiased text-slate-800;
   background-color: var(--bg-light);
   color: var(--text-dark);
 }
@@ -81,12 +82,12 @@ body {
   border-radius: 8px;
   font-size: 14px;
   line-height: 1.35;
-  color: #374151;
+  color: #334155; /* slate-700 */
   transition: background 0.15s ease, color 0.15s ease;
 }
 
 .chapter-nav-link:hover {
-  background: #f3f4f6;
+  background: #f1f5f9; /* slate-100 */
   color: #158a8a;
 }
 
@@ -101,7 +102,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #9ca3af;
+  color: #94a3b8; /* slate-400 */
   margin-bottom: 8px;
 }
 
@@ -112,7 +113,7 @@ body {
 .overview-card {
   background: #fff;
   border-radius: 14px;
-  border: 1px solid #e2e8ec;
+  border: 1px solid #e2e8f0; /* slate-200 */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 

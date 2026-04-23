@@ -4,6 +4,12 @@ import { createServerClient } from "@supabase/ssr";
 
 function isPublicPath(pathname: string) {
   if (pathname === "/welcome") return true;
+  if (pathname === "/course-detail") return true;
+  if (pathname === "/courses") return true;
+  if (pathname === "/courses/") return true;
+  if (pathname.startsWith("/courses/") && pathname.endsWith("/overview")) return true;
+  if (pathname.startsWith("/courses/") && pathname.includes("/learn/")) return true;
+  if (pathname.startsWith("/courses/community/") && pathname.includes("/learn/")) return true;
   if (pathname.startsWith("/api/auth/")) return true;
   // Never redirect API routes (return proper HTTP status codes instead).
   if (pathname.startsWith("/api/")) return true;

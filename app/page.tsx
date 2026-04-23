@@ -32,11 +32,11 @@ export default function HomePage() {
               </p>
               <h1
                 id="home-hero-heading"
-                className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+                className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
               >
                 Welcome back, {name}
               </h1>
-              <p className="mt-3 max-w-xl text-base leading-relaxed text-gray-600 sm:text-lg">
+              <p className="mt-3 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
                 Pick up compliance training, build skills for home care, and keep certificates ready.
                 All in one place.
               </p>
@@ -88,8 +88,8 @@ export default function HomePage() {
               <div className="avatar-circle w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center">
                 <i className="fas fa-user text-2xl" aria-hidden />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">{displayName}</h3>
-              <p className="text-sm text-gray-600 mb-4">
+              <h3 className="text-lg font-semibold text-slate-900 mb-1">{displayName}</h3>
+              <p className="text-sm text-slate-600 mb-4">
                 {dash.isLoading ? "Loading…" : `${certificatesCount} Certificate${certificatesCount === 1 ? "" : "s"}`}
               </p>
               <Link
@@ -165,12 +165,12 @@ export default function HomePage() {
         </div>
 
         <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Recent Activity</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">Recent Activity</h2>
           <div className="card p-6">
             {dash.isLoading ? (
-              <p className="text-sm text-gray-600">Loading activity…</p>
+              <p className="text-sm text-slate-600">Loading activity…</p>
             ) : recent.length === 0 ? (
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-slate-600">
                 No activity yet. Start a course and your progress will appear here.
               </p>
             ) : (
@@ -178,7 +178,7 @@ export default function HomePage() {
                 {recent.map((a, idx) => (
                   <div
                     key={`${a.updatedAt}-${idx}`}
-                    className={`flex items-center justify-between py-3 ${idx < recent.length - 1 ? "border-b border-gray-200" : ""}`}
+                    className={`flex items-center justify-between py-3 ${idx < recent.length - 1 ? "border-b border-slate-200" : ""}`}
                   >
                     <div className="flex items-center">
                       <div
@@ -190,7 +190,7 @@ export default function HomePage() {
                         <p className="font-medium">
                           {a.kind === "completed" ? "Completed" : "Started"} {a.title}
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-slate-600">
                           {new Date(a.updatedAt).toLocaleDateString()}
                         </p>
                       </div>

@@ -103,12 +103,12 @@ export function PreAuthCoursesExplorer({
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
       <div className="space-y-3">
-        <div className="search-bar border border-gray-300 rounded-lg px-4 h-12 flex items-center focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-500/20 bg-white">
-          <i className="fas fa-search text-gray-400" aria-hidden />
+        <div className="search-bar border border-slate-300 rounded-lg px-4 h-12 flex items-center focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-500/20 bg-white">
+          <i className="fas fa-search text-slate-400" aria-hidden />
           <input
             type="search"
             placeholder="Search courses"
-            className="flex-1 border-none outline-none ml-3 text-gray-800 bg-transparent"
+            className="flex-1 border-none outline-none ml-3 text-slate-800 bg-transparent"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             aria-label="Search courses"
@@ -118,16 +118,16 @@ export function PreAuthCoursesExplorer({
         <button
           type="button"
           onClick={() => setFiltersOpen((v) => !v)}
-          className="w-full border border-gray-300 rounded-lg px-4 h-12 flex items-center justify-between bg-white hover:bg-gray-50 transition"
+          className="w-full border border-slate-300 rounded-lg px-4 h-12 flex items-center justify-between bg-white hover:bg-slate-50 transition"
           aria-expanded={filtersOpen}
           aria-controls="preauth-filters"
         >
-          <span className="inline-flex items-center gap-3 text-gray-700">
-            <i className="fas fa-sliders text-gray-500" aria-hidden />
+          <span className="inline-flex items-center gap-3 text-slate-700">
+            <i className="fas fa-sliders text-slate-500" aria-hidden />
             Filter courses
           </span>
           <i
-            className={`fas fa-chevron-down text-gray-500 transition-transform ${filtersOpen ? "rotate-180" : ""}`}
+            className={`fas fa-chevron-down text-slate-500 transition-transform ${filtersOpen ? "rotate-180" : ""}`}
             aria-hidden
           />
         </button>
@@ -135,10 +135,10 @@ export function PreAuthCoursesExplorer({
         {filtersOpen ? (
           <div
             id="preauth-filters"
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 rounded-xl border border-gray-200 bg-white p-4"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 rounded-xl border border-slate-200 bg-white p-4"
           >
             <select
-              className="border border-gray-300 rounded-lg px-3 py-2 bg-white text-gray-800"
+              className="border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-800"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
@@ -150,7 +150,7 @@ export function PreAuthCoursesExplorer({
               ))}
             </select>
             <select
-              className="border border-gray-300 rounded-lg px-3 py-2 bg-white text-gray-800"
+              className="border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-800"
               value={audience}
               onChange={(e) => setAudience(e.target.value)}
             >
@@ -162,7 +162,7 @@ export function PreAuthCoursesExplorer({
               ))}
             </select>
             <select
-              className="border border-gray-300 rounded-lg px-3 py-2 bg-white text-gray-800"
+              className="border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-800"
               value={duration}
               onChange={(e) => setDuration(e.target.value)}
             >
@@ -174,7 +174,7 @@ export function PreAuthCoursesExplorer({
               ))}
             </select>
             <select
-              className="border border-gray-300 rounded-lg px-3 py-2 bg-white text-gray-800"
+              className="border border-slate-300 rounded-lg px-3 py-2 bg-white text-slate-800"
               value={collection}
               onChange={(e) => setCollection(e.target.value)}
             >
@@ -188,7 +188,7 @@ export function PreAuthCoursesExplorer({
             <div className="sm:col-span-2 lg:col-span-4 flex gap-3">
               <button
                 type="button"
-                className="px-5 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50"
+                className="px-5 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50"
                 onClick={clearFilters}
               >
                 Clear filters
@@ -215,8 +215,8 @@ export function PreAuthCoursesExplorer({
               />
             </div>
             <div className="p-6 flex flex-col flex-1">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">{course.title}</h3>
-              <div className="flex justify-between text-sm text-gray-600 mb-4">
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">{course.title}</h3>
+              <div className="flex justify-between text-sm text-slate-600 mb-4">
                 <span>{course.chapters} chapters</span>
                 <span>{course.duration}</span>
               </div>

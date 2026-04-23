@@ -37,7 +37,7 @@ export function AccountMenu() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="nav-link text-gray-700 px-3 py-2 rounded-md text-sm font-medium hover:text-teal-600 transition-colors inline-flex items-center"
+        className="nav-link text-slate-700 px-3 py-2 rounded-md text-sm font-medium hover:text-teal-600 transition-colors inline-flex items-center"
         aria-expanded={open}
         aria-haspopup="menu"
       >
@@ -102,10 +102,10 @@ function MenuItem({
     <button
       type="button"
       onClick={onClick}
-      className="w-full flex items-center gap-3 rounded-xl px-3 py-2 text-sm text-gray-800 hover:bg-gray-50 transition"
+      className="w-full flex items-center gap-3 rounded-xl px-3 py-2 text-sm text-slate-800 hover:bg-slate-50 transition"
       role="menuitem"
     >
-      <i className={`fas ${icon} text-gray-600 w-4 text-center`} aria-hidden />
+      <i className={`fas ${icon} text-slate-600 w-4 text-center`} aria-hidden />
       <span className="font-medium">{label}</span>
     </button>
   );

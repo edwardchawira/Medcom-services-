@@ -118,17 +118,17 @@ export function AuthModal({
                 <p className="text-xs font-bold uppercase tracking-wide text-teal-800">
                   {mode === "signup" ? "Create account" : "Welcome back"}
                 </p>
-                <h2 className="text-lg font-bold text-gray-900 mt-1">
+                <h2 className="text-lg font-bold text-slate-900 mt-1">
                   {mode === "signup" ? "Sign up to Medcom" : "Log in to Medcom"}
                 </h2>
               </div>
               <button
                 type="button"
-                className="h-9 w-9 rounded-full border border-gray-200 bg-white hover:bg-gray-50 transition"
+                className="h-9 w-9 rounded-full border border-slate-200 bg-white hover:bg-slate-50 transition"
                 onClick={onClose}
                 aria-label="Close"
               >
-                <i className="fas fa-times text-gray-500" aria-hidden />
+                <i className="fas fa-times text-slate-500" aria-hidden />
               </button>
             </div>
 
@@ -161,9 +161,9 @@ export function AuthModal({
           <div className="p-5 space-y-4">
             {mode === "signup" ? (
               <label className="block">
-                <span className="text-sm font-semibold text-gray-800">Full name</span>
+                <span className="text-sm font-semibold text-slate-800">Full name</span>
                 <input
-                  className="mt-1 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   autoComplete="name"
@@ -173,10 +173,10 @@ export function AuthModal({
             ) : null}
 
             <label className="block">
-              <span className="text-sm font-semibold text-gray-800">Email</span>
+              <span className="text-sm font-semibold text-slate-800">Email</span>
               <input
                 type="email"
-                className="mt-1 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
+                className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
@@ -185,10 +185,10 @@ export function AuthModal({
             </label>
 
             <label className="block">
-              <span className="text-sm font-semibold text-gray-800">Password</span>
+              <span className="text-sm font-semibold text-slate-800">Password</span>
               <input
                 type="password"
-                className="mt-1 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
+                className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 autoComplete={mode === "signup" ? "new-password" : "current-password"}
@@ -219,7 +219,7 @@ export function AuthModal({
               {loading ? "Working..." : mode === "signup" ? "Create account" : "Log in"}
             </button>
 
-            <p className="text-xs text-gray-500 leading-relaxed">
+            <p className="text-xs text-slate-500 leading-relaxed">
               By continuing you agree to basic account storage for the purpose of demo access.
             </p>
           </div>

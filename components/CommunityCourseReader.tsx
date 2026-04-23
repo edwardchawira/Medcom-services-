@@ -166,7 +166,7 @@ export function CommunityCourseReader({
             <div className="flex items-center gap-4">
               <button
                 type="button"
-                className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100"
+                className="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100"
                 aria-label="Open chapter menu"
                 onClick={() => setSidebarOpen(true)}
               >
@@ -182,7 +182,7 @@ export function CommunityCourseReader({
                   <span className="logo-academy">com</span>
                 </span>
               </Link>
-              <span className="md:hidden text-sm font-medium text-gray-700 truncate max-w-[9rem]">
+              <span className="md:hidden text-sm font-medium text-slate-700 truncate max-w-[9rem]">
                 {isAssessment ? "Assessment" : `Ch. ${stepIndex + 1}`}
               </span>
             </div>
@@ -195,7 +195,7 @@ export function CommunityCourseReader({
               </Link>
               <Link
                 href="/courses"
-                className="text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium"
+                className="text-slate-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium"
               >
                 Courses
               </Link>
@@ -221,20 +221,20 @@ export function CommunityCourseReader({
       <div className="flex learning-main max-w-7xl mx-auto relative">
         {!isAssessment ? (
         <aside
-          className={`fixed md:sticky md:top-16 top-0 left-0 z-[95] w-72 max-w-[85vw] h-[calc(100vh-4rem)] md:h-[calc(100vh-4rem)] bg-white border-r border-gray-200 overflow-y-auto transform transition-transform duration-200 ease-out ${
+          className={`fixed md:sticky md:top-16 top-0 left-0 z-[95] w-72 max-w-[85vw] h-[calc(100vh-4rem)] md:h-[calc(100vh-4rem)] bg-white border-r border-slate-200 overflow-y-auto transform transition-transform duration-200 ease-out ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
           }`}
         >
-          <div className="p-4 border-b border-gray-100 flex justify-between items-center md:block">
+          <div className="p-4 border-b border-slate-100 flex justify-between items-center md:block">
             <div>
-              <p className="text-xs font-bold text-gray-400 uppercase tracking-wide">
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">
                 Course menu
               </p>
-              <p className="text-sm font-semibold text-gray-900 mt-1 line-clamp-3">{courseTitle}</p>
+              <p className="text-sm font-semibold text-slate-900 mt-1 line-clamp-3">{courseTitle}</p>
             </div>
             <button
               type="button"
-              className="md:hidden p-2 text-gray-500"
+              className="md:hidden p-2 text-slate-500"
               aria-label="Close menu"
               onClick={() => setSidebarOpen(false)}
             >
@@ -242,7 +242,7 @@ export function CommunityCourseReader({
             </button>
           </div>
           <nav className="p-3" aria-label="Chapters">
-            <p className="text-xs font-semibold text-gray-500 px-2 mb-2">Chapters</p>
+            <p className="text-xs font-semibold text-slate-500 px-2 mb-2">Chapters</p>
             <div className="space-y-0.5">
               {sorted.map((chapter, i) => {
                 const done = completed.has(i);
@@ -254,11 +254,11 @@ export function CommunityCourseReader({
                     className={`learning-chapter-btn w-full text-left px-3 py-2.5 rounded-lg text-sm border transition-colors ${
                       active
                         ? "bg-teal-50 border-teal-200 text-teal-900 font-semibold"
-                        : "border-transparent text-gray-700 hover:bg-gray-50"
+                        : "border-transparent text-slate-700 hover:bg-slate-50"
                     }`}
                     onClick={() => goToStep(i)}
                   >
-                    <span className="font-medium text-gray-500 w-6 inline-block">{i + 1}</span>
+                    <span className="font-medium text-slate-500 w-6 inline-block">{i + 1}</span>
                     <span className="align-middle">{chapter.title}</span>
                     {done ? (
                       <i className="fas fa-check-circle text-green-600 float-right mt-0.5" aria-hidden />
@@ -271,11 +271,11 @@ export function CommunityCourseReader({
                 className={`learning-chapter-btn w-full text-left px-3 py-2.5 rounded-lg text-sm border mt-2 transition-colors ${
                   isAssessment
                     ? "bg-teal-50 border-teal-200 text-teal-900 font-semibold"
-                    : "border-transparent text-gray-700 hover:bg-gray-50"
+                    : "border-transparent text-slate-700 hover:bg-slate-50"
                 }`}
                 onClick={() => goToStep(sorted.length)}
               >
-                <span className="font-medium text-gray-500 w-6 inline-block">
+                <span className="font-medium text-slate-500 w-6 inline-block">
                   <i className="fas fa-clipboard-check" aria-hidden />
                 </span>{" "}
                 Assessment
@@ -302,19 +302,19 @@ export function CommunityCourseReader({
             <>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
-                  <p className="text-sm text-gray-600 mt-1">{meta}</p>
+                  <h1 className="text-2xl font-bold text-slate-900">{title}</h1>
+                  <p className="text-sm text-slate-600 mt-1">{meta}</p>
                   <p className="sr-only" aria-live="polite">
                     {title}. {meta}.
                   </p>
                 </div>
                 <div className="w-full sm:w-56">
-                  <div className="flex justify-between text-xs text-gray-600 mb-1">
+                  <div className="flex justify-between text-xs text-slate-600 mb-1">
                     <span>Progress</span>
                     <span aria-live="polite">{pct}%</span>
                   </div>
                   <div
-                    className="h-2 bg-gray-200 rounded-full overflow-hidden"
+                    className="h-2 bg-slate-200 rounded-full overflow-hidden"
                     role="progressbar"
                     aria-valuenow={pct}
                     aria-valuemin={0}
@@ -360,7 +360,7 @@ export function CommunityCourseReader({
 
       <footer
         id="learningFooterNav"
-        className="fixed bottom-0 left-0 right-0 border-t border-gray-200 bg-white safe-area-pb"
+        className="fixed bottom-0 left-0 right-0 border-t border-slate-200 bg-white safe-area-pb"
         role="navigation"
         aria-label="Chapter navigation"
       >
@@ -369,13 +369,13 @@ export function CommunityCourseReader({
             type="button"
             disabled={stepIndex === 0}
             onClick={prev}
-            className="justify-self-start px-3 sm:px-5 py-2.5 rounded-lg border-2 border-gray-300 text-gray-700 font-medium hover:bg-gray-50 active:scale-[0.98] transition-transform disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
+            className="justify-self-start px-3 sm:px-5 py-2.5 rounded-lg border-2 border-slate-300 text-slate-700 font-medium hover:bg-slate-50 active:scale-[0.98] transition-transform disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
           >
             <i className="fas fa-chevron-left mr-1 sm:mr-2" aria-hidden />
             <span className="hidden sm:inline">Previous</span>
             <span className="sm:hidden">Prev</span>
           </button>
-          <p className="text-center text-xs sm:text-sm text-gray-500 min-w-0 truncate px-1">
+          <p className="text-center text-xs sm:text-sm text-slate-500 min-w-0 truncate px-1">
             {isAssessment
               ? `Assessment • ${totalSteps} / ${totalSteps}`
               : `Step ${stepIndex + 1} of ${totalSteps}`}

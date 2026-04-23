@@ -46,8 +46,8 @@ export function SiteNav({ activeOverride }: { activeOverride?: string }) {
                     href={href}
                     className={`nav-link shrink-0 px-2 sm:px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap ${
                       active
-                        ? "active text-gray-600"
-                        : "text-gray-600 hover:text-teal-600"
+                        ? "active text-slate-600"
+                        : "text-slate-600 hover:text-teal-600"
                     }`}
                   >
                     <i className={`fas ${icon} mr-1.5 sm:mr-2`} aria-hidden />
@@ -77,7 +77,7 @@ export function SiteNav({ activeOverride }: { activeOverride?: string }) {
             ) : (
               <Link
                 href="/welcome"
-                className="nav-link shrink-0 text-gray-600 px-2 sm:px-3 py-2 rounded-md text-sm font-medium transition-colors hover:text-teal-600 whitespace-nowrap"
+                className="nav-link shrink-0 text-slate-600 px-2 sm:px-3 py-2 rounded-md text-sm font-medium transition-colors hover:text-teal-600 whitespace-nowrap"
               >
                 <i className="fas fa-right-to-bracket mr-1.5 sm:mr-2" aria-hidden />
                 Sign in

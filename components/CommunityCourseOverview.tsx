@@ -53,7 +53,7 @@ export function CommunityCourseOverview({
     <>
       <SiteNav activeOverride="/courses" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
+        <nav className="text-sm text-slate-500 mb-4" aria-label="Breadcrumb">
           <Link href="/" className="hover:text-teal-600">
             Home
           </Link>
@@ -62,13 +62,13 @@ export function CommunityCourseOverview({
             Courses
           </Link>
           <span className="mx-2">/</span>
-          <span className="text-gray-700">{title}</span>
+          <span className="text-slate-700">{title}</span>
         </nav>
 
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px] items-start">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">{title}</h1>
-            <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-6">
+            <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">{title}</h1>
+            <div className="flex flex-wrap gap-4 text-sm text-slate-600 mb-6">
               <span>
                 <i className="fas fa-clock mr-1 text-teal-600" aria-hidden />
                 {duration}
@@ -78,14 +78,14 @@ export function CommunityCourseOverview({
                 {chapterTitles.length} chapters
               </span>
             </div>
-            <p className="text-gray-700 mb-6">
+            <p className="text-slate-700 mb-6">
               Use the chapter menu while learning to jump between sections. Each chapter supports optional
               multiple choice blocks at the bottom (same pattern as other Medcom modules).
             </p>
             {learningOutcomes.length > 0 ? (
               <div className="mb-8">
-                <h2 className="text-lg font-semibold text-gray-900 mb-2">Learning outcomes</h2>
-                <ul className="list-disc pl-6 space-y-2 text-gray-800 text-sm">
+                <h2 className="text-lg font-semibold text-slate-900 mb-2">Learning outcomes</h2>
+                <ul className="list-disc pl-6 space-y-2 text-slate-800 text-sm">
                   {learningOutcomes.map((o) => (
                     <li key={o}>{o}</li>
                   ))}
@@ -117,7 +117,7 @@ export function CommunityCourseOverview({
               </p>
             ) : null}
           </div>
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-gray-200 bg-gray-50 shadow-sm">
+          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-50 shadow-sm">
             <Image
               src={thumbnail}
               alt=""
@@ -129,9 +129,9 @@ export function CommunityCourseOverview({
           </div>
         </div>
 
-        <section className="mt-12 border-t border-gray-200 pt-8">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Chapters</h2>
-          <ol className="space-y-2 list-decimal pl-6 text-gray-800">
+        <section className="mt-12 border-t border-slate-200 pt-8">
+          <h2 className="text-lg font-semibold text-slate-900 mb-4">Chapters</h2>
+          <ol className="space-y-2 list-decimal pl-6 text-slate-800">
             {chapterTitles.map((t, i) => (
               <li key={`${i}-${t}`}>
                 <Link

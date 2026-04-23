@@ -92,7 +92,7 @@ export function MedicationOverview() {
     <>
       <SiteNav activeOverride="/courses" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
+        <nav className="text-sm text-slate-500 mb-4" aria-label="Breadcrumb">
           <Link href="/" className="hover:text-teal-600">
             Home
           </Link>
@@ -101,16 +101,16 @@ export function MedicationOverview() {
             Courses
           </Link>
           <span className="mx-2">/</span>
-          <span className="text-gray-700">
+          <span className="text-slate-700">
             Prompting and assisting with medication in Home Care
           </span>
         </nav>
 
         <div className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+          <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">
             Prompting and assisting with medication in Home Care
           </h1>
-          <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+          <div className="flex flex-wrap gap-4 text-sm text-slate-600">
             <span>
               <i className="fas fa-clock mr-1 text-teal-600" aria-hidden />
               20–30 minutes
@@ -154,8 +154,8 @@ export function MedicationOverview() {
 
           <main className="lg:col-span-8 xl:col-span-9 space-y-6">
             <section id="ch-1" className="chapter-section overview-card p-6 md:p-8">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Introduction</h2>
-              <p className="text-gray-700 leading-relaxed text-sm md:text-base mb-4">
+              <h2 className="text-xl font-bold text-slate-900 mb-4">Introduction</h2>
+              <p className="text-slate-700 leading-relaxed text-sm md:text-base mb-4">
                 Welcome to the{" "}
                 <strong>Medcom Prompting and assisting with medication in Home Care</strong>{" "}
                 course. This module gives you essential knowledge for safe, effective prompting
@@ -177,10 +177,10 @@ export function MedicationOverview() {
                 id={`ch-${n}`}
                 className="chapter-section overview-card p-6 md:p-8"
               >
-                <h2 className="text-xl font-bold text-gray-900 mb-4">
+                <h2 className="text-xl font-bold text-slate-900 mb-4">
                   Chapter {n} overview
                 </h2>
-                <p className="text-gray-700 leading-relaxed text-sm">
+                <p className="text-slate-700 leading-relaxed text-sm">
                   Use <strong>Continue training</strong> below to open the interactive reader
                   for this module. You can jump between chapters from the course menu.
                 </p>
@@ -196,8 +196,8 @@ export function MedicationOverview() {
             ))}
 
             <section id="assessment" className="chapter-section overview-card p-6 md:p-8">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Assessment</h2>
-              <p className="text-gray-700 leading-relaxed text-sm mb-4">
+              <h2 className="text-xl font-bold text-slate-900 mb-4">Assessment</h2>
+              <p className="text-slate-700 leading-relaxed text-sm mb-4">
                 Complete the chapters, then finish with the assessment step in the reader.
               </p>
               <Link
