@@ -39,6 +39,12 @@ export async function GET() {
 type ChapterInput = {
   title: string;
   content: string;
+  blocks?: {
+    block_type: "text" | "image" | "quiz";
+    content_json: Record<string, unknown>;
+    source?: "manual" | "ai";
+    status?: "draft" | "published" | "archived";
+  }[];
   questions?: {
     prompt: string;
     options: string[];
@@ -209,6 +215,42 @@ export async function POST(req: Request) {
     if (qErr) {
       await supabase.from("community_courses").delete().eq("id", course.id);
       return NextResponse.json({ error: qErr.message }, { status: 500 });
+    }
+  }
+
+  const blockRows: {
+    chapter_id: string;
+    sort_order: number;
+    block_type: "text" | "image" | "quiz";
+    content_json: Record<string, unknown>;
+    source: "manual" | "ai";
+    status: "draft" | "published" | "archived";
+    created_by: string;
+  }[] = [];
+
+  chaptersIn.forEach((ch, idx) => {
+    const chapterId = chByOrder.get(idx + 1);
+    if (!chapterId) return;
+    const blocks = Array.isArray(ch.blocks) ? ch.blocks : [];
+    blocks.forEach((block, blockIdx) => {
+      if (!block?.block_type || !block?.content_json) return;
+      blockRows.push({
+        chapter_id: chapterId,
+        sort_order: blockIdx + 1,
+        block_type: block.block_type,
+        content_json: block.content_json,
+        source: block.source === "ai" ? "ai" : "manual",
+        status: block.status ?? "draft",
+        created_by: user.id,
+      });
+    });
+  });
+
+  if (blockRows.length > 0) {
+    const { error: blockErr } = await supabase.from("community_course_lesson_blocks").insert(blockRows);
+    if (blockErr) {
+      await supabase.from("community_courses").delete().eq("id", course.id);
+      return NextResponse.json({ error: blockErr.message }, { status: 500 });
     }
   }
 
